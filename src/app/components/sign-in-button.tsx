@@ -1,6 +1,5 @@
 import { getSignInUrl, getUser, signOut } from '@workos-inc/authkit-nextjs';
-import { Button, Flex } from '@radix-ui/themes';
-import * as Avatar from '@radix-ui/react-avatar';
+import { Button, Flex, Avatar, Link } from '@radix-ui/themes';
 
 export async function SignInButton({ large }: { large?: boolean }) {
   const { user } = await getUser();
@@ -8,7 +7,7 @@ export async function SignInButton({ large }: { large?: boolean }) {
 
   if (user) {
     return (
-      <Flex gap="3">
+      <Flex gap="3" align="center">
         <form
           action={async () => {
             'use server';
@@ -19,23 +18,20 @@ export async function SignInButton({ large }: { large?: boolean }) {
             Sign Out
           </Button>
         </form>
-        <Avatar.Root>
-          <Avatar.Image
+        <a href="/dashboard">
+          <Avatar
+            size="2"
             src={user.profilePictureUrl as string}
-            alt={`${user.firstName} ${user.lastName}`}
+            fallback={user.firstName?.[0] || ''}
           />
-          <Avatar.Fallback delayMs={600}>
-            {user.firstName?.[0] ?? ''}
-            {user.lastName?.[0] ?? ''}
-          </Avatar.Fallback>
-        </Avatar.Root>
+        </a>
       </Flex>
     );
   }
 
   return (
     <Button asChild size={large ? '3' : '2'}>
-      <a href={authorizationUrl}>Sign In</a>
+      <Link href={authorizationUrl}>Sign In</Link>
     </Button>
   );
 }

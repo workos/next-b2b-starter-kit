@@ -1,14 +1,10 @@
-import { Flex } from '@radix-ui/themes';
-import { getUser } from '@workos-inc/authkit-nextjs';
+import PageContainer from '../components/layout/page-container';
 
-export default async function Dashboard() {
-  const { user } = await getUser({ ensureSignedIn: true });
-
+export default function page() {
   return (
-    <div>
-      <Flex>
-        <h1>Welcome, {user.firstName}</h1>
-      </Flex>
-    </div>
+    <PageContainer scrollable={true}>
+      <h1>Welcome to the Dashboard</h1>
+      <p>Select a section from the sidebar to get started.</p>
+    </PageContainer>
   );
 }

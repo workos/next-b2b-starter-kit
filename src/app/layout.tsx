@@ -1,37 +1,33 @@
+import Providers from './components/layout/providers';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import NextTopLoader from 'nextjs-toploader';
+import { Inter } from 'next/font/google';
 import { Theme } from '@radix-ui/themes';
-import { AuthKitProvider } from '@workos-inc/authkit-nextjs';
 
 import './globals.css';
 import '@radix-ui/themes/styles.css';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'B2B Starter Kit',
-  description: 'An enterprise-ready starter kit for B2B SaaS applications.',
+  title: 'Next Radix',
+  description: 'Basic dashboard with Next.js and Radix UI',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${inter.className} overflow-hidden `}
+        suppressHydrationWarning={true}
+      >
         <Theme>
-          <AuthKitProvider>{children}</AuthKitProvider>
+          <NextTopLoader showSpinner={false} />
+          <Providers>{children}</Providers>
         </Theme>
       </body>
     </html>
