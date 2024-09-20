@@ -44,7 +44,9 @@ export function DashboardNav({ items, setOpen }: DashboardNavProps) {
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
                   <Button
+                    asChild
                     size="3"
+                    color="gray"
                     variant={path === item.href ? 'solid' : 'soft'}
                     style={{ cursor: 'pointer' }}
                     onClick={() => {

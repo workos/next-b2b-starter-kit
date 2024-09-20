@@ -1,5 +1,14 @@
-import { Avatar, IconButton, DropdownMenu, Flex, Text } from '@radix-ui/themes';
-import { getUser, signOut } from '@workos-inc/authkit-nextjs';
+import {
+  Avatar,
+  Box,
+  IconButton,
+  DropdownMenu,
+  Flex,
+  Text,
+} from '@radix-ui/themes';
+import { getUser } from '@workos-inc/authkit-nextjs';
+import Link from 'next/link';
+import signOut from '@/actions/signOut';
 
 export async function UserNav() {
   const { user } = await getUser({ ensureSignedIn: true });
@@ -33,20 +42,13 @@ export async function UserNav() {
         </DropdownMenu.Label>
         <DropdownMenu.Separator />
         <DropdownMenu.Group>
-          <DropdownMenu.Item>Profile</DropdownMenu.Item>
-          <DropdownMenu.Item>Billing</DropdownMenu.Item>
-          <DropdownMenu.Item>Settings</DropdownMenu.Item>
-          <DropdownMenu.Item>New Team</DropdownMenu.Item>
+          <DropdownMenu.Item>
+            <Link href="/dashboard/settings">Settings</Link>
+          </DropdownMenu.Item>
         </DropdownMenu.Group>
         <DropdownMenu.Separator />
-        <DropdownMenu.Item
-          color="purple"
-          onClick={async () => {
-            'use server';
-            await signOut();
-          }}
-        >
-          Log out
+        <DropdownMenu.Item color="blue">
+          <Box onClick={signOut}>Log out</Box>
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

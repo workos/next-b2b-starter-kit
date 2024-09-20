@@ -6,7 +6,7 @@ import {
   ChevronLeftIcon,
   PersonIcon,
   GlobeIcon,
-  CubeIcon,
+  GearIcon,
   DashboardIcon,
 } from '@radix-ui/react-icons';
 import { useSidebar } from '@/hooks/useSidebar';
@@ -29,10 +29,10 @@ const navItems: NavItem[] = [
     label: 'Users',
   },
   {
-    title: 'Organizations',
-    href: '/dashboard/organizations',
-    icon: CubeIcon,
-    label: 'Organizations',
+    title: 'Settings',
+    href: '/dashboard/settings',
+    icon: GearIcon,
+    label: 'Settings',
   },
 ];
 
@@ -51,7 +51,7 @@ export default function Sidebar() {
       }}
       position="relative"
     >
-      <Box p="5">
+      <Box p="4">
         <Link href="/" target="_blank">
           <GlobeIcon width="2rem" height="2rem" />
         </Link>
@@ -63,13 +63,14 @@ export default function Sidebar() {
         width="30px"
         height="30px"
         right="-15px"
-        top="9"
+        top="4"
         p="1"
         style={{
           border: '1px solid grey',
           borderRadius: '50%',
           cursor: 'pointer',
           zIndex: 1,
+          background: 'var(--accent-1)',
         }}
         onClick={toggle}
       >

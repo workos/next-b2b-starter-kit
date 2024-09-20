@@ -1,6 +1,6 @@
-import Header from '../components/layout/header';
+import Header from '../components/layout/dashboard-header';
 import Sidebar from '../components/layout/sidebar';
-import { Flex, Section, Box } from '@radix-ui/themes';
+import { Flex, Box } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
 

@@ -1,7 +1,9 @@
 import styles from './page.module.css';
-import { Flex, Text, Heading, Button, Code, Link, Box } from '@radix-ui/themes';
+import { Flex, Text, Heading, Button, Code, Section } from '@radix-ui/themes';
 import { getUser } from '@workos-inc/authkit-nextjs';
-import { Header } from './components/header';
+import { Header } from './components/layout/header';
+import { Footer } from './components/layout/footer';
+import Link from 'next/link';
 
 export default async function Home() {
   const { user } = await getUser();
@@ -31,16 +33,12 @@ export default async function Home() {
           <Text>
             To get started, run: <Code>npx b2b-starter-kit</Code>
           </Text>
-          <Button>Pricing</Button>
+          <Button>
+            <Link href="/pricing">Pricing</Link>
+          </Button>
         </Flex>
       </main>
-      <footer className={styles.footer}>
-        <Box>
-          <Text size="2">
-            Made with ❤️ by<Link href="https://workos.com"> WorkOS</Link>
-          </Text>
-        </Box>
-      </footer>
+      <Footer />
     </div>
   );
 }
