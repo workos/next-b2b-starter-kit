@@ -20,14 +20,23 @@ http.route({
       const { data, event } = JSON.parse(bodyText);
 
       switch (event) {
-        case "user.created":
+        case "user.created": {
           await ctx.runMutation(api.users.create, {
             email: data.email,
             workos_id: data.id,
           });
           break;
-        default:
+        }
+        case "organization.created": {
+          await ctx.runMutation(api.organizations.create, {
+            name: data.name,
+            workos_id: data.id,
+          });
+          break;
+        }
+        default: {
           throw new Error(`Unhandled event type: ${event}`);
+        }
       }
 
       return new Response(JSON.stringify({ status: "success" }), {
