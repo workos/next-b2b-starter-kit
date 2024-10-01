@@ -49,6 +49,22 @@ http.route({
           });
           break;
         }
+        case 'organization.deleted': {
+          let organization = await ctx.runQuery(internal.organizations.getByWorkOSId, {
+            workos_id: data.id,
+          });
+
+          if (!organization?._id) {
+            // TODO: compose more sophisticated error messaging?
+            throw new Error(`Unhandled event type: organization not found: ${data.id}.`);
+          }
+
+          await ctx.runMutation(internal.organizations.deleteOrganization, {
+            id: organization._id,
+          });
+
+          break;
+        }
         default: {
           throw new Error(`Unhandled event type: ${event}`);
         }
