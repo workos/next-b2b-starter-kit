@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Link } from '@radix-ui/themes';
+import { Box, Text, Link } from '@radix-ui/themes';
 
 export function Footer() {
   return (

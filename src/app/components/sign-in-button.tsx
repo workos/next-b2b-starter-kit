@@ -1,8 +1,8 @@
-import { getSignInUrl, getUser, signOut } from '@workos-inc/authkit-nextjs';
+import { getSignInUrl, withAuth, signOut } from '@workos-inc/authkit-nextjs';
 import { Button, Flex, Avatar, Link } from '@radix-ui/themes';
 
 export async function SignInButton({ large }: { large?: boolean }) {
-  const { user } = await getUser();
+  const { user } = await withAuth();
   const authorizationUrl = await getSignInUrl();
 
   if (user) {
@@ -19,11 +19,7 @@ export async function SignInButton({ large }: { large?: boolean }) {
           </Button>
         </form>
         <a href="/dashboard">
-          <Avatar
-            size="2"
-            src={user.profilePictureUrl as string}
-            fallback={user.firstName?.[0] || ''}
-          />
+          <Avatar size="2" src={user.profilePictureUrl as string} fallback={user.firstName?.[0] || ''} />
         </a>
       </Flex>
     );

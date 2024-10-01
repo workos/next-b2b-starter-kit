@@ -1,32 +1,16 @@
-import {
-  Avatar,
-  Box,
-  IconButton,
-  DropdownMenu,
-  Flex,
-  Text,
-} from '@radix-ui/themes';
-import { getUser } from '@workos-inc/authkit-nextjs';
+import { Avatar, Box, IconButton, DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import { withAuth } from '@workos-inc/authkit-nextjs';
 import Link from 'next/link';
 import signOut from '@/actions/signOut';
 
 export async function UserNav() {
-  const { user } = await getUser({ ensureSignedIn: true });
+  const { user } = await withAuth({ ensureSignedIn: true });
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <IconButton
-          variant="ghost"
-          radius="full"
-          style={{ position: 'relative', cursor: 'pointer' }}
-        >
-          <Avatar
-            size="2"
-            radius="full"
-            src={user.profilePictureUrl as string}
-            fallback={user.firstName?.[0] || ''}
-          />
+        <IconButton variant="ghost" radius="full" style={{ position: 'relative', cursor: 'pointer' }}>
+          <Avatar size="2" radius="full" src={user.profilePictureUrl as string} fallback={user.firstName?.[0] || ''} />
         </IconButton>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content size="2">

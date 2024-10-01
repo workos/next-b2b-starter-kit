@@ -52,7 +52,7 @@ export default function Sidebar() {
       position="relative"
     >
       <Box p="4">
-        <Link href="/" target="_blank">
+        <Link href="/">
           <GlobeIcon width="2rem" height="2rem" />
         </Link>
       </Box>
