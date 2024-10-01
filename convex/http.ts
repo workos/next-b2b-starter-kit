@@ -21,7 +21,7 @@ http.route({
 
       switch (event) {
         case 'user.created': {
-          await ctx.runMutation(api.users.create, {
+          await ctx.runMutation(internal.users.create, {
             email: data.email,
             workos_id: data.id,
           });
@@ -36,7 +36,7 @@ http.route({
             throw new Error(`Unhandled event type: User not found: ${data.id}.`);
           }
 
-          await ctx.runMutation(internal.users.deleteUser, {
+          await ctx.runMutation(internal.users.destroy, {
             id: user._id,
           });
 
