@@ -27,6 +27,21 @@ http.route({
           });
           break;
         }
+        case 'user.deleted': {
+          let user = await ctx.runQuery(internal.users.getByWorkOSId, {
+            workos_id: data.id,
+          });
+
+          if (!user?._id) {
+            throw new Error(`Unhandled event type: User not found: ${data.id}.`);
+          }
+
+          await ctx.runMutation(internal.users.deleteUser, {
+            id: user._id,
+          });
+
+          break;
+        }
         case 'organization.created': {
           await ctx.runMutation(api.organizations.create, {
             name: data.name,
