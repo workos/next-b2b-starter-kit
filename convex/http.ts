@@ -42,6 +42,23 @@ http.route({
 
           break;
         }
+        case 'user.updated': {
+          let user = await ctx.runQuery(internal.users.getByWorkOSId, {
+            workos_id: data.id,
+          });
+
+          if (!user?._id) {
+            // TODO: compose more sophisticated error messaging?
+            throw new Error(`Unhandled event type: User not found: ${data.id}.`);
+          }
+
+          await ctx.runMutation(internal.users.update, {
+            id: user._id,
+            patch: { email: data.email },
+          });
+
+          break;
+        }
         case 'organization.created': {
           await ctx.runMutation(api.organizations.create, {
             name: data.name,
