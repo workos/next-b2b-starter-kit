@@ -82,6 +82,23 @@ http.route({
 
           break;
         }
+        case 'organization.updated': {
+          let organization = await ctx.runQuery(internal.organizations.getByWorkOSId, {
+            workos_id: data.id,
+          });
+
+          if (!organization?._id) {
+            // TODO: compose more sophisticated error messaging?
+            throw new Error(`Unhandled event type: organization not found: ${data.id}.`);
+          }
+
+          await ctx.runMutation(internal.organizations.update, {
+            id: organization._id,
+            patch: { name: data.name },
+          });
+
+          break;
+        }
         default: {
           throw new Error(`Unhandled event type: ${event}`);
         }
