@@ -1,19 +1,10 @@
-import { mutation, internalQuery, internalMutation } from './_generated/server';
-import { v } from 'convex/values';
+import { internalQuery } from './_generated/server';
 import schema from './schema';
-import { partial } from 'convex-helpers/validators';
+import { crud } from 'convex-helpers/server/crud';
 
 const organizationFields = schema.tables.organizations.validator.fields;
 
-export const create = mutation({
-  args: v.object(organizationFields),
-  handler: async (ctx, args) => {
-    return await ctx.db.insert('organizations', {
-      workos_id: args.workos_id,
-      name: args.name,
-    });
-  },
-});
+export const { create, destroy, update } = crud(schema, 'organizations');
 
 export const getByWorkOSId = internalQuery({
   args: { workos_id: organizationFields.workos_id },
@@ -23,19 +14,5 @@ export const getByWorkOSId = internalQuery({
       .filter((q) => q.eq(q.field('workos_id'), args.workos_id))
       .first();
     return organization;
-  },
-});
-
-export const deleteOrganization = internalMutation({
-  args: { id: v.id('organizations') },
-  handler: async (ctx, args) => {
-    return await ctx.db.delete(args.id);
-  },
-});
-
-export const update = internalMutation({
-  args: { id: v.id('organizations'), patch: v.object(partial(organizationFields)) },
-  handler: async (ctx, args) => {
-    return await ctx.db.patch(args.id, args.patch);
   },
 });

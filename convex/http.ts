@@ -60,7 +60,7 @@ http.route({
           break;
         }
         case 'organization.created': {
-          await ctx.runMutation(api.organizations.create, {
+          await ctx.runMutation(internal.organizations.create, {
             name: data.name,
             workos_id: data.id,
           });
@@ -76,7 +76,7 @@ http.route({
             throw new Error(`Unhandled event type: organization not found: ${data.id}.`);
           }
 
-          await ctx.runMutation(internal.organizations.deleteOrganization, {
+          await ctx.runMutation(internal.organizations.destroy, {
             id: organization._id,
           });
 
