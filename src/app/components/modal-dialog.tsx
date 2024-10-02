@@ -5,6 +5,11 @@ import { Button, Callout, Dialog, Flex, Text, TextField } from '@radix-ui/themes
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { useRouter } from 'next/navigation';
 
+/**
+ * The 'subscriptionLevel' prop is the name of the subscription plan and is directly tied to the Stripe price lookup key.
+ * You will need to have a price in Stripe with the same lookup key as the subscriptionLevel.
+ * See https://docs.stripe.com/products-prices/pricing-models for more details
+ */
 export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: string; userId: string }) {
   const router = useRouter();
 

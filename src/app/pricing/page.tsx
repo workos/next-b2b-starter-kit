@@ -8,7 +8,7 @@ export default async function PricingPage() {
 
   return (
     <Flex align="center" justify="center" direction="column" gap="5" height="100vh">
-      <Header />
+      <Header signedIn={user !== null} />
       <Heading size="9">Pricing</Heading>
       <Pricing />
       {!user && (

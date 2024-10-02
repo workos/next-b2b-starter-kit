@@ -1,9 +1,7 @@
-import Stripe from 'stripe';
+import { stripe } from '../stripe';
 import { workos } from '../workos';
 import { NextRequest, NextResponse } from 'next/server';
 import { DomainDataState } from '@workos-inc/node';
-
-const stripe = new Stripe(process.env.STRIPE_API_KEY as string);
 
 export const POST = async (req: NextRequest) => {
   const { userId, orgName, domain, subscriptionLevel } = await req.json();
