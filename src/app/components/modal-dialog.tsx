@@ -3,34 +3,49 @@
 import React, { useState } from 'react';
 import { Button, Callout, Dialog, Flex, Text, TextField } from '@radix-ui/themes';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { useRouter } from 'next/navigation';
 
 export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: string; userId: string }) {
+  const router = useRouter();
+
   const [orgName, setOrgName] = useState('');
   const [domain, setDomain] = useState('');
-  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleSubscribe = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    setLoading(true);
+
     if (orgName === '' || domain === '') {
-      e.preventDefault();
-      setShowError(true);
+      setError('Please fill out both Organization name and Domain.');
+      setLoading(false);
       return;
     }
 
-    console.log('Subscribing to plan: ', subscriptionLevel);
-    console.log(orgName, domain);
-
     // Call API to create a new organization and subscribe to plan
     // The user will be redirected to Stripe Checkout
-    await fetch('/api/create-checkout-session', {
+    const res = await fetch('/api/subscribe', {
       method: 'POST',
-      body: JSON.stringify({ userId, orgName, domain }),
+      body: JSON.stringify({ userId, orgName, domain, subscriptionLevel }),
     });
+
+    const { error, url } = await res.json();
+
+    if (!error) {
+      return router.push(url);
+    }
+
+    setLoading(false);
+    setError(`Error subscribing to plan: ${error}`);
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button onClick={() => setShowError(false)}>Subscribe to {subscriptionLevel} plan</Button>
+        <Button onClick={() => setError('')}>Subscribe to {subscriptionLevel} plan</Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Title>Subscribe to {subscriptionLevel} plan</Dialog.Title>
@@ -51,12 +66,12 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
             </Text>
             <TextField.Root placeholder="Enter your full domain" onBlur={(e) => setDomain(e.target.value)} />
           </label>
-          {showError && (
+          {error && (
             <Callout.Root color="red">
               <Callout.Icon>
                 <InfoCircledIcon />
               </Callout.Icon>
-              <Callout.Text>Please fill out both Organization name and Domain.</Callout.Text>
+              <Callout.Text>{error}</Callout.Text>
             </Callout.Root>
           )}
         </Flex>
@@ -68,7 +83,9 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
             </Button>
           </Dialog.Close>
           <Dialog.Close>
-            <Button onClick={handleSubscribe}>Subscribe</Button>
+            <Button loading={loading} onClick={handleSubscribe}>
+              Subscribe
+            </Button>
           </Dialog.Close>
         </Flex>
       </Dialog.Content>

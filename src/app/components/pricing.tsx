@@ -1,8 +1,7 @@
-import { Box, Flex, Card, Inset, Text, Strong, Table, IconButton } from '@radix-ui/themes';
+import { Box, Flex, Card, Inset, Text, Strong, Table } from '@radix-ui/themes';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import { ModalDialog } from './modal-dialog';
 import Image from 'next/image';
-import { CheckCircledIcon } from '@radix-ui/react-icons';
 
 export async function Pricing() {
   const { user } = await withAuth();
@@ -71,7 +70,7 @@ export async function Pricing() {
           </Inset>
           <Flex gap="3" direction="column">
             <Text as="p" size="5">
-              <Strong>Economic</Strong>
+              <Strong>Standard</Strong>
             </Text>
             <Table.Root variant="surface">
               <Table.Header>
@@ -95,7 +94,7 @@ export async function Pricing() {
                 </Table.Row>
               </Table.Body>
             </Table.Root>
-            {user && <ModalDialog subscriptionLevel="economic" userId={user.id} />}
+            {user && <ModalDialog subscriptionLevel="standard" userId={user.id} />}
           </Flex>
         </Card>
       </Box>
