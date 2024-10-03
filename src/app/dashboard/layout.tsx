@@ -1,4 +1,4 @@
-import Header from '../components/layout/dashboard-header';
+import DashboardHeader from '../components/layout/dashboard-header';
 import Sidebar from '../components/layout/sidebar';
 import { Flex, Box } from '@radix-ui/themes';
 
@@ -9,16 +9,12 @@ export const metadata: Metadata = {
   description: 'Basic B2B dashboard with Next.js and Radix',
 };
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <Flex>
       <Sidebar />
       <Box flexGrow="1" overflow="hidden">
-        <Header />
+        <DashboardHeader />
         {children}
       </Box>
     </Flex>

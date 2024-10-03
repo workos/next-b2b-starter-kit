@@ -2,17 +2,12 @@
 
 import React from 'react';
 import { DashboardNav } from '../dashboard-nav';
-import {
-  ChevronLeftIcon,
-  PersonIcon,
-  GlobeIcon,
-  GearIcon,
-  DashboardIcon,
-} from '@radix-ui/react-icons';
+import { ChevronLeftIcon, PersonIcon, GlobeIcon, GearIcon, DashboardIcon, ArchiveIcon } from '@radix-ui/react-icons';
 import { useSidebar } from '@/hooks/useSidebar';
 import Link from 'next/link';
 import { NavItem } from '../../../../types';
 import { Box, Flex } from '@radix-ui/themes';
+import { withAuth } from '@workos-inc/authkit-nextjs';
 
 // TODO - get these from DB
 const navItems: NavItem[] = [
@@ -29,6 +24,12 @@ const navItems: NavItem[] = [
     label: 'Users',
   },
   {
+    title: 'Audit Logs',
+    href: '/dashboard/audit-logs',
+    icon: ArchiveIcon,
+    label: 'Audit Logs',
+  },
+  {
     title: 'Settings',
     href: '/dashboard/settings',
     icon: GearIcon,
@@ -38,6 +39,8 @@ const navItems: NavItem[] = [
 
 export default function Sidebar() {
   const { isMinimized, toggle } = useSidebar();
+
+  // TODO get org to show in header
 
   return (
     <Box

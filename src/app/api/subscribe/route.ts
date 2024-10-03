@@ -23,6 +23,8 @@ export const POST = async (req: NextRequest) => {
       roleSlug: 'admin',
     });
 
+    // TODO: Store the org ID on the user here
+
     // Retrieve price ID from Stripe
     // The Stripe look up key for the price *must* be the same as the subscription level string
     const price = await stripe.prices.list({
@@ -38,7 +40,7 @@ export const POST = async (req: NextRequest) => {
         },
       ],
       mode: 'subscription',
-      success_url: 'http://localhost:3000/dashboard',
+      success_url: 'http://localhost:3000/router',
       cancel_url: 'http://localhost:3000/pricing',
     });
 
