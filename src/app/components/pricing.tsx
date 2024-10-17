@@ -1,148 +1,73 @@
-import { Box, Flex, Card, Inset, Text, Strong, Table } from '@radix-ui/themes';
+import { Box, Flex, Card, Text, Strong } from '@radix-ui/themes';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import { ModalDialog } from './modal-dialog';
-import Image from 'next/image';
+import { CheckIcon } from '@radix-ui/react-icons';
+
+const plans = [
+  {
+    name: 'Basic',
+    teamMembers: 3,
+    price: 5,
+    cadence: 'monthly',
+    features: ['Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
+  },
+  {
+    name: 'Standard',
+    teamMembers: 10,
+    price: 10,
+    cadence: 'monthly',
+    features: ['Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
+  },
+  {
+    name: 'Enterprise',
+    teamMembers: 'Unlimited',
+    price: 100,
+    cadence: 'yearly',
+    features: ['Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
+  },
+];
 
 export async function Pricing() {
   const { user } = await withAuth();
 
   return (
-    <Flex gap="5">
-      <Box maxWidth="400px">
-        <Card size="3">
-          <Inset clip="padding-box" side="top" pb="current">
-            <Image
-              src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
-              alt="Basic"
-              width={400}
-              height={140}
-              style={{
-                display: 'block',
-                objectFit: 'cover',
-                backgroundColor: 'var(--gray-5)',
-              }}
-            />
-          </Inset>
-          <Flex gap="3" direction="column">
-            <Text as="p" size="5">
-              <Strong>Basic</Strong>
-            </Text>
-            <Table.Root variant="surface">
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeaderCell justify="center">Feature</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell justify="center">Included</Table.ColumnHeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature A</Table.RowHeaderCell>
-                  <Table.Cell justify="center">✅</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature B</Table.RowHeaderCell>
-                  <Table.Cell justify="center">❌</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature C</Table.RowHeaderCell>
-                  <Table.Cell justify="center">❌</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table.Root>
-            {user && <ModalDialog subscriptionLevel="basic" userId={user.id} />}
-          </Flex>
-        </Card>
-      </Box>
-      <Box maxWidth="400px">
-        <Card size="3">
-          <Inset clip="padding-box" side="top" pb="current">
-            <Image
-              src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
-              alt="Basic"
-              width={400}
-              height={140}
-              style={{
-                display: 'block',
-                objectFit: 'cover',
-                backgroundColor: 'var(--gray-5)',
-              }}
-            />
-          </Inset>
-          <Flex gap="3" direction="column">
-            <Text as="p" size="5">
-              <Strong>Standard</Strong>
-            </Text>
-            <Table.Root variant="surface">
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeaderCell justify="center">Feature</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell justify="center">Included</Table.ColumnHeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature A</Table.RowHeaderCell>
-                  <Table.Cell justify="center">✅</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature B</Table.RowHeaderCell>
-                  <Table.Cell justify="center">✅</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature C</Table.RowHeaderCell>
-                  <Table.Cell justify="center">❌</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table.Root>
-            {user && <ModalDialog subscriptionLevel="standard" userId={user.id} />}
-          </Flex>
-        </Card>
-      </Box>
-      <Box maxWidth="400px">
-        <Card size="3">
-          <Inset clip="padding-box" side="top" pb="current">
-            <Image
-              src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
-              alt="Basic"
-              width={400}
-              height={140}
-              style={{
-                display: 'block',
-                objectFit: 'cover',
-                backgroundColor: 'var(--gray-5)',
-              }}
-            />
-          </Inset>
-          <Flex gap="3" direction="column">
-            <Text as="p" size="5">
-              <Strong>Enterprise</Strong>
-            </Text>
-            <Table.Root variant="surface">
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeaderCell justify="center">Feature</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell justify="center">Included</Table.ColumnHeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature A</Table.RowHeaderCell>
-                  <Table.Cell justify="center">✅</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature B</Table.RowHeaderCell>
-                  <Table.Cell justify="center">✅</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.RowHeaderCell justify="center">Feature C</Table.RowHeaderCell>
-                  <Table.Cell justify="center">✅</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table.Root>
-            {user && <ModalDialog subscriptionLevel="enterprise" userId={user.id} />}
-          </Flex>
-        </Card>
-      </Box>
+    <Flex gap="5" minWidth="50vw">
+      {plans.map((plan) => (
+        <Box key={plan.name} style={{ flexGrow: 1 }}>
+          <Card size="3">
+            <Flex direction="column" gap="3">
+              <Flex direction="column" gap="0">
+                <Text as="p" size="5">
+                  {plan.name}
+                </Text>
+                <Text size="1" color="gray">
+                  {plan.teamMembers} team members
+                </Text>
+              </Flex>
+              <Flex align="center" gap="2">
+                <Text size="8">
+                  <Strong>${plan.price}</Strong>
+                </Text>
+                <Flex direction="column">
+                  <Text size="1" color="gray">
+                    per month,
+                  </Text>
+                  <Text size="1" color="gray">
+                    billed {plan.cadence}
+                  </Text>
+                </Flex>
+              </Flex>
+              {plan.features.map((feature) => (
+                <Flex key={feature} align="center" gap="2">
+                  <CheckIcon />
+                  <Text size="1">{feature}</Text>
+                </Flex>
+              ))}
+              {user && <ModalDialog subscriptionLevel={plan.name.toLowerCase()} userId={user.id} />}
+            </Flex>
+          </Card>
+        </Box>
+      ))}
     </Flex>
   );
 }

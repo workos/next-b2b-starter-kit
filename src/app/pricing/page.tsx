@@ -11,13 +11,14 @@ export default async function PricingPage() {
     <Flex align="center" justify="center" direction="column" gap="5" height="100vh">
       <Header signedIn={user !== null} />
       <Heading size="9">Pricing</Heading>
+      <Text></Text>
       <Pricing />
       {!user && (
-        <Flex align="center" justify="center" gap="2">
-          <SignInButton large />
-          <Text size="5">
-            <Strong>to subscribe to a plan</Strong>
+        <Flex direction="column" align="center" gap="3">
+          <Text as="div" size="8">
+            <Strong>Ready to get started?</Strong>
           </Text>
+          <SignInButton large />
         </Flex>
       )}
     </Flex>

@@ -34,7 +34,7 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
     // The user will be redirected to Stripe Checkout
     const res = await fetch('/api/subscribe', {
       method: 'POST',
-      body: JSON.stringify({ userId, orgName, domain, subscriptionLevel }),
+      body: JSON.stringify({ userId, orgName, domain, subscriptionLevel: subscriptionLevel.toLowerCase() }),
     });
 
     const { error, url } = await res.json();
@@ -50,10 +50,10 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button onClick={() => setError('')}>Subscribe to {subscriptionLevel} plan</Button>
+        <Button onClick={() => setError('')}>Subscribe to {subscriptionLevel}</Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Title>Subscribe to {subscriptionLevel} plan</Dialog.Title>
+        <Dialog.Title>Subscribe to {subscriptionLevel}</Dialog.Title>
         <Dialog.Description size="2" mb="4">
           Enter details about your business
         </Dialog.Description>
