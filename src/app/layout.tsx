@@ -2,7 +2,7 @@ import Providers from './components/layout/providers';
 import { Header } from './components/layout/header';
 import NextTopLoader from 'nextjs-toploader';
 import { Inter } from 'next/font/google';
-import { Flex, Theme } from '@radix-ui/themes';
+import { Box, Flex, Theme } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
 
@@ -21,10 +21,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <body className={`${inter.className} overflow-hidden `} suppressHydrationWarning={true}>
         <Theme radius="medium">
-          <Flex direction="column" height="100vh">
-            <Header />
-            <NextTopLoader showSpinner={false} />
-            <Providers>{children}</Providers>
+          <NextTopLoader showSpinner={false} />
+          <Flex direction="column">
+            <Box flexGrow="1">
+              <Header />
+            </Box>
+            <Box flexGrow="1">
+              <Providers>{children}</Providers>
+            </Box>
           </Flex>
         </Theme>
       </body>

@@ -27,11 +27,11 @@ export default async function ProductPage() {
         <Text size="6">
           <Strong>$200</Strong>
         </Text>
-        <Text size="2" color="gray">
+        <Text size="3" color="gray">
           Introducing the Enterprise Ready Blanket—your cozy companion for conquering boardrooms and binge-watching
           marathons alike!
         </Text>
-        <Text size="2" color="gray">
+        <Text size="3" color="gray">
           With enough warmth to make you feel like you’re wrapped in a cloud and pockets for remote controls, snacks,
           and maybe even a cat, this blanket is designed to keep you comfy while you tackle the day (or night). Whether
           you’re in a meeting or on the couch, this blanket has you covered—literally!
@@ -64,11 +64,17 @@ export default async function ProductPage() {
       <Box
         flexGrow="1"
         width="50%"
-        height="100%"
+        height="75vh"
         position="relative"
         style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'var(--gray-3)' }}
       >
-        <Image src="/product/enterprise_blanket.png" alt="Enterprise Ready Blanket" layout="fill" objectFit="contain" />
+        <Image
+          src="/product/enterprise_blanket.png"
+          alt="Enterprise Ready Blanket"
+          layout="fill"
+          objectFit="contain"
+          style={{ padding: '2em' }}
+        />
       </Box>
     </Flex>
   );

@@ -9,7 +9,7 @@ export async function Header() {
   const { user, role } = await withAuth();
 
   return (
-    <Flex direction="row" justify="between" width="100vw" pb="4" pt="4">
+    <Flex direction="row" justify="between" pb="4" pt="4">
       <Box pl="9">
         <Link href="/">
           <Image src="/logos/superapp_logo.svg" className="logo" alt="SuperApp logo" width={144} height={24} />

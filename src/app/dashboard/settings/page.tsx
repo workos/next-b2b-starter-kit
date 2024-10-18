@@ -1,39 +1,43 @@
-import { Flex, Heading, Card, Box, Text } from '@radix-ui/themes';
-import { GearIcon, CardStackIcon } from '@radix-ui/react-icons';
-import PageContainer from '@/app/components/layout/page-container';
+import { Button, Flex, Heading, Box, Text } from '@radix-ui/themes';
 
 export default function SettingsPage() {
   return (
-    <PageContainer scrollable>
-      <Heading>Settings</Heading>
-      <Flex mt="4" gap="4">
-        <Card>
-          <Flex gap="3" align="center">
-            <GearIcon />
-            <Box>
-              <Text as="div" size="2" weight="bold">
-                Configure SSO settings
-              </Text>
-              <Text as="div" size="2" color="gray">
-                Set up or modify an existing SSO connection
-              </Text>
-            </Box>
-          </Flex>
-        </Card>
-        <Card>
-          <Flex gap="3" align="center">
-            <CardStackIcon />
-            <Box>
-              <Text as="div" size="2" weight="bold">
-                Configure payment settings
-              </Text>
-              <Text as="div" size="2" color="gray">
-                Update payment method or change plans
-              </Text>
-            </Box>
-          </Flex>
-        </Card>
+    <Flex direction="column" gap="3" width="100%">
+      <Box>
+        <Heading>Dashboard</Heading>
+      </Box>
+      <Flex
+        flexGrow="1"
+        align="stretch"
+        p="4"
+        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
+        direction="column"
+        gap="3"
+      >
+        <Text size="4">Single Sign-On</Text>
+        <Text size="2" color="gray">
+          Setup or modify an existing SSO connection
+        </Text>
+        <Box>
+          <Button variant="soft">Configure</Button>
+        </Box>
       </Flex>
-    </PageContainer>
+      <Flex
+        flexGrow="1"
+        align="stretch"
+        p="4"
+        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
+        direction="column"
+        gap="3"
+      >
+        <Text size="4">Payments & Subscriptions</Text>
+        <Text size="2" color="gray">
+          Update payment method or change plans
+        </Text>
+        <Box>
+          <Button variant="soft">Configure</Button>
+        </Box>
+      </Flex>
+    </Flex>
   );
 }

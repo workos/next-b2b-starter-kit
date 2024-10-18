@@ -1,15 +1,20 @@
-import PageContainer from '@/app/components/layout/page-container';
-import { Box, Text, Heading, Separator } from '@radix-ui/themes';
+import { Box, Flex, Text, Heading } from '@radix-ui/themes';
 
 export default function Users() {
   return (
-    <PageContainer scrollable={true}>
-      <Heading>Users page</Heading>
-      <Box pt="2">
-        <Text as="p">User element goes here.</Text>
-        <Separator my="3" size="4" />
-        <Text as="p">Option to invite users or enable domain capture</Text>
+    <Flex direction="column" gap="3" width="100%">
+      <Box>
+        <Heading>Users Management</Heading>
       </Box>
-    </PageContainer>
+      <Flex
+        flexGrow="1"
+        align="stretch"
+        p="4"
+        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
+        direction="column"
+      >
+        <Text>User Element</Text>
+      </Flex>
+    </Flex>
   );
 }

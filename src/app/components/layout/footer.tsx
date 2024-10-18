@@ -11,7 +11,7 @@ export function Footer() {
       </Box>
       <Box as="div" position="absolute" right="9" bottom="5">
         <Link href="https://github.com/workos/b2b-starter-kit">
-          <Image src="/github_logo.svg" alt="Find on GitHub" width={24} height={24} />
+          <Image src="/logos/github_logo.svg" alt="Find on GitHub" width={24} height={24} />
         </Link>
       </Box>
     </Box>

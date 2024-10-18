@@ -29,7 +29,7 @@ const plans = [
     price: 100,
     currency: '$',
     cadence: 'yearly',
-    features: ['Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
+    features: ['Audit logs', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
     highlight: true,
   },
 ];

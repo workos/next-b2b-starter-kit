@@ -1,0 +1,10 @@
+
+.dashboardNavButton:hover {
+  background-color: #e2e2e2;
+  color: #333; /* Change text color on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.dashboardNavButton:active {
+  background-color: val(--gray-2);
+}

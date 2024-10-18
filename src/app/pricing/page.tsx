@@ -9,10 +9,10 @@ export default async function PricingPage() {
   return (
     <Flex align="center" justify="center" direction="column" gap="5" flexGrow="1">
       <Heading size="9">Pricing</Heading>
-      <Text>Every plan includes a 30-day trial.</Text>
+      <Text mb="6">Every plan includes a 30-day trial.</Text>
       <Pricing />
       {!user && (
-        <Flex direction="column" align="center" gap="3">
+        <Flex mt="6" direction="column" align="center" gap="3">
           <Text as="div" size="8">
             <Strong>Ready to get started?</Strong>
           </Text>

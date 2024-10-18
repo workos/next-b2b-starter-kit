@@ -1,5 +1,5 @@
-import { DashboardNav } from '../components/dashboard-nav';
-import { Flex, Box } from '@radix-ui/themes';
+import { DashboardNav } from '../components/layout/DashboardNav/dashboard-nav';
+import { Flex } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
 
@@ -10,11 +10,9 @@ export const metadata: Metadata = {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Flex m="9" mt="6" style={{ boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 3px 0px inset', backgroundColor: '#FCFCFD' }}>
+    <Flex ml="9" mr="9" pt="5" gap="3" style={{ borderTop: '1px solid lightgray', backgroundColor: '#FCFCFD' }}>
       <DashboardNav />
-      <Box flexGrow="1" overflow="hidden">
-        {children}
-      </Box>
+      {children}
     </Flex>
   );
 }

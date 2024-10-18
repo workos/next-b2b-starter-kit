@@ -1,5 +1,5 @@
 import PageContainer from '../components/layout/page-container';
-import { Box, Text, Heading } from '@radix-ui/themes';
+import { Box, Flex, Text, Heading, Container, Section } from '@radix-ui/themes';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import { redirect } from 'next/navigation';
 
@@ -12,11 +12,19 @@ export default async function DashboardPage() {
   }
 
   return (
-    <PageContainer scrollable={true}>
-      <Heading>Welcome to the Dashboard</Heading>
-      <Box pt="2">
-        <Text>Select a section from the sidebar to get started.</Text>
+    <Flex direction="column" gap="3" width="100%">
+      <Box>
+        <Heading>Dashboard</Heading>
       </Box>
-    </PageContainer>
+      <Flex
+        flexGrow="1"
+        align="stretch"
+        p="4"
+        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
+        direction="column"
+      >
+        <Text>To get started, select an item from the sidebar.</Text>
+      </Flex>
+    </Flex>
   );
 }
