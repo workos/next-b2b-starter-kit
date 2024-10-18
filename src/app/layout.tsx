@@ -1,4 +1,3 @@
-import Providers from './components/layout/providers';
 import { Header } from './components/layout/header';
 import NextTopLoader from 'nextjs-toploader';
 import { Inter } from 'next/font/google';
@@ -8,6 +7,8 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 import '@radix-ui/themes/styles.css';
+import ThemeProvider from './components/layout/ThemeToggle/theme-provider';
+import { AuthKitProvider } from '@workos-inc/authkit-nextjs';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,17 +21,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className={`${inter.className} overflow-hidden `} suppressHydrationWarning={true}>
-        <Theme radius="medium">
-          <NextTopLoader showSpinner={false} />
-          <Flex direction="column">
-            <Box flexGrow="1">
-              <Header />
-            </Box>
-            <Box flexGrow="1">
-              <Providers>{children}</Providers>
-            </Box>
-          </Flex>
-        </Theme>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <Theme radius="medium">
+            <NextTopLoader showSpinner={false} />
+            <Flex direction="column">
+              <Box flexGrow="1">
+                <Header />
+              </Box>
+              <Box flexGrow="1">
+                <AuthKitProvider>{children}</AuthKitProvider>
+              </Box>
+            </Flex>
+          </Theme>
+        </ThemeProvider>
       </body>
     </html>
   );

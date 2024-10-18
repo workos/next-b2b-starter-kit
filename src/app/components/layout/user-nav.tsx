@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Box, IconButton, DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import { Avatar, Button, Box, IconButton, DropdownMenu, Flex, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import { PersonIcon } from '@radix-ui/react-icons';
 import { usePathname } from 'next/navigation';
@@ -22,10 +22,10 @@ export function UserNav({ user, role }: { user: User; role: string }) {
   return (
     <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger>
-        <IconButton variant="ghost" radius="full" style={{ position: 'relative', cursor: 'pointer' }}>
+        <IconButton variant="ghost" style={{ position: 'relative', cursor: 'pointer' }}>
           <Avatar
             size="2"
-            radius="full"
+            radius="medium"
             src={user.profilePictureUrl as string}
             fallback={user.firstName?.[0] || <PersonIcon />}
           />

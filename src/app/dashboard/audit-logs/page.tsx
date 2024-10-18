@@ -1,4 +1,5 @@
-import { Heading, Flex, Box, Text } from '@radix-ui/themes';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { Heading, Flex, Box, Text, Callout } from '@radix-ui/themes';
 
 export default function AuditLogs() {
   return (
@@ -13,7 +14,12 @@ export default function AuditLogs() {
         style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
         direction="column"
       >
-        <Text>This feature is only available on the Enterprise level plan.</Text>
+        <Callout.Root color="red">
+          <Callout.Icon>
+            <InfoCircledIcon />
+          </Callout.Icon>
+          <Callout.Text>This feature is only available on the Enterprise level plan.</Callout.Text>
+        </Callout.Root>
       </Flex>
     </Flex>
   );

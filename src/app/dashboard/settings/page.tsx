@@ -1,6 +1,25 @@
 import { Button, Flex, Heading, Box, Text } from '@radix-ui/themes';
+import { workos } from '@/app/api/workos';
+import { GeneratePortalLinkIntent } from '@workos-inc/node';
+import { withAuth } from '@workos-inc/authkit-nextjs';
+import Link from 'next/link';
+import { stripe } from '@/app/api/stripe';
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const { organizationId } = await withAuth({ ensureSignedIn: true });
+
+  const { link: workOSAdminPortalLink } = await workos.portal.generateLink({
+    organization: organizationId as string,
+    intent: GeneratePortalLinkIntent.SSO,
+  });
+
+  // const { url: stripeBillingPortalLink } = await stripe.billingPortal.sessions.create({
+  //   customer:
+  //   return_url:
+  // });
+
+  console.log(workOSAdminPortalLink);
+
   return (
     <Flex direction="column" gap="3" width="100%">
       <Box>
@@ -19,7 +38,9 @@ export default function SettingsPage() {
           Setup or modify an existing SSO connection
         </Text>
         <Box>
-          <Button variant="soft">Configure</Button>
+          <Button variant="soft" style={{ cursor: 'pointer' }}>
+            <Link href={workOSAdminPortalLink}>Configure</Link>
+          </Button>
         </Box>
       </Flex>
       <Flex
@@ -35,7 +56,9 @@ export default function SettingsPage() {
           Update payment method or change plans
         </Text>
         <Box>
-          <Button variant="soft">Configure</Button>
+          <Button variant="soft" style={{ cursor: 'pointer' }}>
+            Configure
+          </Button>
         </Box>
       </Flex>
     </Flex>
