@@ -4,8 +4,9 @@ import { withAuth } from '@workos-inc/authkit-nextjs';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
-  let session = await withAuth({ ensureSignedIn: true });
+  const session = await withAuth({ ensureSignedIn: true });
 
+  // This view is restricted to admins
   if (session.role !== 'admin') {
     return redirect('/product');
   }

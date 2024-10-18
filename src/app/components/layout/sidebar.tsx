@@ -7,40 +7,9 @@ import { useSidebar } from '@/hooks/useSidebar';
 import Link from 'next/link';
 import { NavItem } from '../../../../types';
 import { Box, Flex } from '@radix-ui/themes';
-import { withAuth } from '@workos-inc/authkit-nextjs';
-
-// TODO - get these from DB
-const navItems: NavItem[] = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
-    icon: DashboardIcon,
-    label: 'Dashboard',
-  },
-  {
-    title: 'Users',
-    href: '/dashboard/users',
-    icon: PersonIcon,
-    label: 'Users',
-  },
-  {
-    title: 'Audit Logs',
-    href: '/dashboard/audit-logs',
-    icon: ArchiveIcon,
-    label: 'Audit Logs',
-  },
-  {
-    title: 'Settings',
-    href: '/dashboard/settings',
-    icon: GearIcon,
-    label: 'Settings',
-  },
-];
 
 export default function Sidebar() {
   const { isMinimized, toggle } = useSidebar();
-
-  // TODO get org to show in header
 
   return (
     <Box
@@ -54,11 +23,6 @@ export default function Sidebar() {
       }}
       position="relative"
     >
-      <Box p="4">
-        <Link href="/">
-          <GlobeIcon width="2rem" height="2rem" />
-        </Link>
-      </Box>
       <Flex
         align="center"
         justify="center"

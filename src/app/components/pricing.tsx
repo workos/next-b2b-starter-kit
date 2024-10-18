@@ -3,27 +3,34 @@ import { withAuth } from '@workos-inc/authkit-nextjs';
 import { ModalDialog } from './modal-dialog';
 import { CheckIcon } from '@radix-ui/react-icons';
 
+// Ideally this data would come from a database or API
 const plans = [
   {
     name: 'Basic',
     teamMembers: 3,
     price: 5,
+    currency: '$',
     cadence: 'monthly',
     features: ['Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
+    highlight: false,
   },
   {
     name: 'Standard',
     teamMembers: 10,
     price: 10,
+    currency: '$',
     cadence: 'monthly',
     features: ['Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
+    highlight: false,
   },
   {
     name: 'Enterprise',
     teamMembers: 'Unlimited',
     price: 100,
+    currency: '$',
     cadence: 'yearly',
     features: ['Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum', 'Lorem ipsum'],
+    highlight: true,
   },
 ];
 
@@ -33,11 +40,11 @@ export async function Pricing() {
   return (
     <Flex gap="5" minWidth="50vw">
       {plans.map((plan) => (
-        <Box key={plan.name} style={{ flexGrow: 1 }}>
-          <Card size="3">
-            <Flex direction="column" gap="3">
+        <Box key={plan.name} flexGrow="1">
+          <Card size="3" style={plan.highlight ? { border: '1px solid blue' } : undefined}>
+            <Flex direction="column" gap="4">
               <Flex direction="column" gap="0">
-                <Text as="p" size="5">
+                <Text as="p" size="5" color={plan.highlight ? 'blue' : undefined}>
                   {plan.name}
                 </Text>
                 <Text size="1" color="gray">
@@ -46,7 +53,10 @@ export async function Pricing() {
               </Flex>
               <Flex align="center" gap="2">
                 <Text size="8">
-                  <Strong>${plan.price}</Strong>
+                  <Strong>
+                    {plan.currency}
+                    {plan.price}
+                  </Strong>
                 </Text>
                 <Flex direction="column">
                   <Text size="1" color="gray">
@@ -57,13 +67,15 @@ export async function Pricing() {
                   </Text>
                 </Flex>
               </Flex>
-              {plan.features.map((feature) => (
-                <Flex key={feature} align="center" gap="2">
-                  <CheckIcon />
-                  <Text size="1">{feature}</Text>
-                </Flex>
-              ))}
-              {user && <ModalDialog subscriptionLevel={plan.name.toLowerCase()} userId={user.id} />}
+              <Flex direction="column" gap="2">
+                {plan.features.map((feature) => (
+                  <Flex key={feature} align="center" gap="2">
+                    <CheckIcon />
+                    <Text size="1">{feature}</Text>
+                  </Flex>
+                ))}
+              </Flex>
+              {user && <ModalDialog subscriptionLevel={plan.name} userId={user.id} />}
             </Flex>
           </Card>
         </Box>
