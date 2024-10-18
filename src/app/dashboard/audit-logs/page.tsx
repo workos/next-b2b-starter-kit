@@ -4,7 +4,7 @@ export default function AuditLogs() {
   return (
     <Flex direction="column" gap="3" width="100%">
       <Box>
-        <Heading>Users Management</Heading>
+        <Heading>Audit Logs</Heading>
       </Box>
       <Flex
         flexGrow="1"
@@ -13,7 +13,7 @@ export default function AuditLogs() {
         style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
         direction="column"
       >
-        <Text>User Element</Text>
+        <Text>This feature is only available on the Enterprise level plan.</Text>
       </Flex>
     </Flex>
   );

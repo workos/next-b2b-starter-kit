@@ -41,17 +41,12 @@ export function DashboardNav() {
       <Flex direction="column" align="stretch" gap="1" overflow="hidden" flexGrow="1">
         {navItems.map((item, index) => {
           const Icon = item.icon ?? ArrowRightIcon;
+          const selected = pathname === item.href ? styles['selected'] : null;
           return (
             item.href && (
               <Flex p="1" direction="column" key={index} gap="1">
                 <Link href={item.href}>
-                  <Flex
-                    align="center"
-                    gap="2"
-                    className={styles.dashboardNavButton}
-                    p="2"
-                    style={{ borderRadius: 'var(--radius-3)' }}
-                  >
+                  <Flex align="center" gap="2" className={[styles['dashboard-nav-button'], selected].join(' ')} p="2">
                     <Icon width="20px" height="20px" />
                     {item.title}
                   </Flex>

@@ -1,10 +1,16 @@
-
-.dashboardNavButton:hover {
-  background-color: #e2e2e2;
-  color: #333; /* Change text color on hover */
-  cursor: pointer; /* Change cursor to pointer on hover */
+.dashboard-nav-button {
+  border-radius: var(--radius-3);
+  cursor: pointer;
 }
 
-.dashboardNavButton:active {
-  background-color: val(--gray-2);
+.dashboard-nav-button:hover {
+  background-color: var(--gray-3);
+}
+
+.dashboard-nav-button:active {
+  background-color: var(--gray-2);
+}
+
+.selected {
+  background-color: var(--gray-4);
 }
