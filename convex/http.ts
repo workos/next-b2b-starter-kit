@@ -1,6 +1,6 @@
 import { httpRouter } from 'convex/server';
 import { httpAction } from './_generated/server';
-import { api, internal } from './_generated/api';
+import { internal } from './_generated/api';
 
 const http = httpRouter();
 
@@ -28,7 +28,7 @@ http.route({
           break;
         }
         case 'user.deleted': {
-          let user = await ctx.runQuery(internal.users.getByWorkOSId, {
+          const user = await ctx.runQuery(internal.users.getByWorkOSId, {
             workos_id: data.id,
           });
 
@@ -43,7 +43,7 @@ http.route({
           break;
         }
         case 'user.updated': {
-          let user = await ctx.runQuery(internal.users.getByWorkOSId, {
+          const user = await ctx.runQuery(internal.users.getByWorkOSId, {
             workos_id: data.id,
           });
 
@@ -67,7 +67,7 @@ http.route({
           break;
         }
         case 'organization.deleted': {
-          let organization = await ctx.runQuery(internal.organizations.getByWorkOSId, {
+          const organization = await ctx.runQuery(internal.organizations.getByWorkOSId, {
             workos_id: data.id,
           });
 
@@ -83,7 +83,7 @@ http.route({
           break;
         }
         case 'organization.updated': {
-          let organization = await ctx.runQuery(internal.organizations.getByWorkOSId, {
+          const organization = await ctx.runQuery(internal.organizations.getByWorkOSId, {
             workos_id: data.id,
           });
 

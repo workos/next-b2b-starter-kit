@@ -1,5 +1,5 @@
 import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Heading, Flex, Box, Text, Callout } from '@radix-ui/themes';
+import { Heading, Flex, Box, Callout } from '@radix-ui/themes';
 
 export default function AuditLogs() {
   return (
