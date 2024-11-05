@@ -71,9 +71,9 @@ export default async function ProductPage() {
         <Image
           src="/product/enterprise_blanket.png"
           alt="Enterprise Ready Blanket"
-          layout="fill"
-          objectFit="contain"
           style={{ padding: '2em' }}
+          fill
+          objectFit="contain"
         />
       </Box>
     </Flex>

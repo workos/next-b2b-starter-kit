@@ -22,7 +22,7 @@ export default async function DashboardPage() {
         style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
         direction="column"
       >
-        <Text>To get started, select an item from the sidebar.</Text>
+        <Text>Use this area to build your dashboard.</Text>
       </Flex>
     </Flex>
   );
