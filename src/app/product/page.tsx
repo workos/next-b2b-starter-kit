@@ -1,12 +1,12 @@
-import { Box, Flex, Heading, Text, Strong, Separator, Button, AspectRatio } from '@radix-ui/themes';
+import { Box, Flex, Heading, Text, Strong, Separator, Button } from '@radix-ui/themes';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
-import { withAuth } from '@workos-inc/authkit-nextjs';
 import Image from 'next/image';
 
+/**
+ * Product page, this is where you'd put your company's product.
+ * This page is only accessible to signed-in users.
+ */
 export default async function ProductPage() {
-  // Ensure the user is signed in
-  const { user } = await withAuth({ ensureSignedIn: true });
-
   return (
     <Flex
       gap="9"

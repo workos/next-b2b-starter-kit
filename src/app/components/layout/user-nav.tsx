@@ -8,15 +8,7 @@ import { User } from '@workos-inc/node';
 import { authkitSignOut } from '../../actions/authkit-signout';
 import { useState } from 'react';
 
-export function UserNav({
-  user,
-  role,
-  entitlements,
-}: {
-  user: User;
-  role: string | undefined;
-  entitlements: string[];
-}) {
+export function UserNav({ user, role }: { user: User; role: string | undefined; entitlements: string[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 

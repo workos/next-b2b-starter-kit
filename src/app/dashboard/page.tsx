@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Heading, Container, Section } from '@radix-ui/themes';
+import { Box, Flex, Text, Heading } from '@radix-ui/themes';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import { redirect } from 'next/navigation';
 
