@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Button, Box, IconButton, DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import { Avatar, Box, IconButton, DropdownMenu, Flex, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import { PersonIcon } from '@radix-ui/react-icons';
 import { usePathname } from 'next/navigation';
@@ -8,7 +8,15 @@ import { User } from '@workos-inc/node';
 import { authkitSignOut } from '../../actions/authkit-signout';
 import { useState } from 'react';
 
-export function UserNav({ user, role }: { user: User; role: string }) {
+export function UserNav({
+  user,
+  role,
+  entitlements,
+}: {
+  user: User;
+  role: string | undefined;
+  entitlements: string[];
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -46,9 +54,9 @@ export function UserNav({ user, role }: { user: User; role: string }) {
           <>
             <DropdownMenu.Separator />
             <DropdownMenu.Group>
-              <DropdownMenu.Item onClick={() => setOpen(false)}>
-                <Link href="/dashboard">Dashboard</Link>
-              </DropdownMenu.Item>
+              <Link href="/dashboard">
+                <DropdownMenu.Item onClick={() => setOpen(false)}>Dashboard</DropdownMenu.Item>
+              </Link>
             </DropdownMenu.Group>
           </>
         )}
@@ -56,9 +64,9 @@ export function UserNav({ user, role }: { user: User; role: string }) {
           <>
             <DropdownMenu.Separator />
             <DropdownMenu.Group>
-              <DropdownMenu.Item onClick={() => setOpen(false)}>
-                <Link href="/product">Product</Link>
-              </DropdownMenu.Item>
+              <Link href="/product">
+                <DropdownMenu.Item onClick={() => setOpen(false)}>Product</DropdownMenu.Item>
+              </Link>
             </DropdownMenu.Group>
           </>
         )}

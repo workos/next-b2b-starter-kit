@@ -14,7 +14,6 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
   const router = useRouter();
 
   const [orgName, setOrgName] = useState('');
-  const [domain, setDomain] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -24,8 +23,8 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
 
     setLoading(true);
 
-    if (orgName === '' || domain === '') {
-      setError('Please fill out both Organization name and Domain.');
+    if (orgName === '') {
+      setError('Please fill out Organization name before submitting.');
       setLoading(false);
       return;
     }
@@ -34,7 +33,7 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
     // The user will be redirected to Stripe Checkout
     const res = await fetch('/api/subscribe', {
       method: 'POST',
-      body: JSON.stringify({ userId, orgName, domain, subscriptionLevel: subscriptionLevel.toLowerCase() }),
+      body: JSON.stringify({ userId, orgName, subscriptionLevel: subscriptionLevel.toLowerCase() }),
     });
 
     const { error, url } = await res.json();
@@ -64,12 +63,6 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
               Organization name
             </Text>
             <TextField.Root placeholder="Enter your orgnization name" onBlur={(e) => setOrgName(e.target.value)} />
-          </label>
-          <label>
-            <Text as="div" size="2" mb="1" weight="bold">
-              Domain
-            </Text>
-            <TextField.Root placeholder="Enter your full domain" onBlur={(e) => setDomain(e.target.value)} />
           </label>
           {error && (
             <Callout.Root color="red">

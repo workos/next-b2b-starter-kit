@@ -67,7 +67,9 @@ export default async function Home() {
       <main className={styles.main}>
         <Flex direction="column" gap="5" justify="center" align="center" maxWidth="75vw">
           <Flex direction="column" justify="center" align="center" maxWidth="50vw">
-            <Heading size="9">B2B Starter Kit</Heading>
+            <Heading size="9" align="center">
+              B2B Starter Kit
+            </Heading>
             <Text mt="6" size="7" align="center">
               Quickly build and deploy your B2B SaaS application using modern frameworks designed for seamless scaling
               for enterprise customers.

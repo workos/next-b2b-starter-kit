@@ -13,7 +13,7 @@ export default function Users() {
         style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
         direction="column"
       >
-        <Text>User Element</Text>
+        <Text>TODO: Add users table</Text>
       </Flex>
     </Flex>
   );

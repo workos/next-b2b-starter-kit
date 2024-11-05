@@ -1,7 +1,7 @@
 import { Header } from './components/layout/header';
 import NextTopLoader from 'nextjs-toploader';
 import { Inter } from 'next/font/google';
-import { Box, Flex, Theme } from '@radix-ui/themes';
+import { Box, Flex } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
 
@@ -9,6 +9,7 @@ import './globals.css';
 import '@radix-ui/themes/styles.css';
 import ThemeProvider from './components/layout/ThemeToggle/theme-provider';
 import { AuthKitProvider } from '@workos-inc/authkit-nextjs';
+import { DynamicBackground } from './components/layout/DynamicBackground';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <body className={`${inter.className} overflow-hidden `} suppressHydrationWarning={true}>
         <ThemeProvider attribute="class" defaultTheme="light">
-          <Theme radius="medium">
+          <DynamicBackground>
             <NextTopLoader showSpinner={false} />
             <Flex direction="column">
               <Box flexGrow="1">
@@ -32,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <AuthKitProvider>{children}</AuthKitProvider>
               </Box>
             </Flex>
-          </Theme>
+          </DynamicBackground>
         </ThemeProvider>
       </body>
     </html>

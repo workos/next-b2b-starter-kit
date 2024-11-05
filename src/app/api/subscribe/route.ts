@@ -1,20 +1,13 @@
 import { stripe } from '../stripe';
 import { workos } from '../workos';
 import { NextRequest, NextResponse } from 'next/server';
-import { DomainDataState } from '@workos-inc/node';
 
 export const POST = async (req: NextRequest) => {
-  const { userId, orgName, domain, subscriptionLevel } = await req.json();
+  const { userId, orgName, subscriptionLevel } = await req.json();
 
   try {
     const organization = await workos.organizations.createOrganization({
       name: orgName,
-      domainData: [
-        {
-          domain: domain,
-          state: 'pending' as DomainDataState,
-        },
-      ],
     });
 
     await workos.userManagement.createOrganizationMembership({
@@ -45,7 +38,8 @@ export const POST = async (req: NextRequest) => {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (e: unknown) {
+    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 };

@@ -3,7 +3,7 @@ import { workos } from '@/app/api/workos';
 import { GeneratePortalLinkIntent } from '@workos-inc/node';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import Link from 'next/link';
-import { stripe } from '@/app/api/stripe';
+import { UpgradeButton } from '@/app/components/upgrade-button';
 
 export default async function SettingsPage() {
   const { organizationId } = await withAuth({ ensureSignedIn: true });
@@ -12,13 +12,6 @@ export default async function SettingsPage() {
     organization: organizationId as string,
     intent: GeneratePortalLinkIntent.SSO,
   });
-
-  // const { url: stripeBillingPortalLink } = await stripe.billingPortal.sessions.create({
-  //   customer:
-  //   return_url:
-  // });
-
-  console.log(workOSAdminPortalLink);
 
   return (
     <Flex direction="column" gap="3" width="100%">
@@ -29,7 +22,11 @@ export default async function SettingsPage() {
         flexGrow="1"
         align="stretch"
         p="4"
-        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
+        style={{
+          borderRadius: 'var(--radius-3)',
+          backgroundColor: 'white',
+          border: '1px solid var(--gray-3)',
+        }}
         direction="column"
         gap="3"
       >
@@ -47,7 +44,11 @@ export default async function SettingsPage() {
         flexGrow="1"
         align="stretch"
         p="4"
-        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
+        style={{
+          borderRadius: 'var(--radius-3)',
+          backgroundColor: 'white',
+          border: '1px solid var(--gray-3)',
+        }}
         direction="column"
         gap="3"
       >
@@ -56,9 +57,7 @@ export default async function SettingsPage() {
           Update payment method or change plans
         </Text>
         <Box>
-          <Button variant="soft" style={{ cursor: 'pointer' }}>
-            Configure
-          </Button>
+          <UpgradeButton path="settings">Configure</UpgradeButton>
         </Box>
       </Flex>
     </Flex>

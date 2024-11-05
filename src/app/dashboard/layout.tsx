@@ -10,7 +10,16 @@ export const metadata: Metadata = {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Flex ml="9" mr="9" pt="5" gap="3" style={{ borderTop: '1px solid lightgray', backgroundColor: '#FCFCFD' }}>
+    <Flex
+      ml="9"
+      mr="9"
+      pt="5"
+      gap="3"
+      style={{
+        borderTop: '1px solid lightgray',
+        backgroundColor: 'var(--gray-2)',
+      }}
+    >
       <DashboardNav />
       {children}
     </Flex>

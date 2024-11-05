@@ -4,6 +4,8 @@ import { promises as fs } from 'node:fs';
 import { promisify } from 'node:util';
 import crypto from 'node:crypto';
 import path from 'node:path';
+import { WorkOS } from '@workos-inc/node';
+import chalk from 'chalk';
 
 const execAsync = promisify(exec);
 
@@ -22,7 +24,7 @@ function question(query: string): Promise<string> {
 }
 
 async function checkStripeCLI() {
-  console.log('Step 1: Checking if Stripe CLI is installed and authenticated...');
+  console.log(`${chalk.bold('Step 1:')} Checking if Stripe CLI is installed and authenticated...`);
   try {
     await execAsync('stripe --version');
     console.log('Stripe CLI is installed.');
@@ -61,19 +63,19 @@ async function checkStripeCLI() {
 }
 
 async function getStripeSecretKey(): Promise<string> {
-  console.log('Step 3: Getting Stripe Secret Key');
+  console.log('Step 2: Getting Stripe Secret Key');
   console.log('You can find your Stripe Secret Key at: https://dashboard.stripe.com/test/apikeys');
   return await question('Enter your Stripe Secret Key: ');
 }
 
 async function getWorkOSSecretKey(): Promise<string> {
-  console.log('Step 2: Getting WorkOS API Keys');
+  console.log('Step 3: Getting WorkOS API Keys');
   console.log('You can find your WorkOS API Key in the dashboard: https://dashboard.workos.com');
   return await question('Enter your WorkOS API Key: ');
 }
 
 async function getWorkOSClientId(): Promise<string> {
-  console.log('Step 3: Getting WorkOS Client ID');
+  console.log('Step 4: Getting WorkOS Client ID');
   console.log('You can find your WorkOS Client ID in the dashboard: https://dashboard.workos.com');
   return await question('Enter your WorkOS Client ID: ');
 }
@@ -83,8 +85,50 @@ function generateAuthSecret(): string {
   return crypto.randomBytes(32).toString('hex');
 }
 
+async function setAuditLogSchema(workosApiKey: string) {
+  console.log('Step 6: Creating audit log schema');
+  console.log('Creating schema for "user.logged_in" event');
+
+  const workos = new WorkOS(workosApiKey);
+
+  try {
+    await workos.auditLogs.createSchema({
+      action: 'user.logged_in',
+      actor: {
+        metadata: {
+          role: 'string',
+        },
+      },
+      targets: [
+        {
+          type: 'user',
+        },
+      ],
+    });
+
+    console.log(`Created schema for "user.logged_in" event`);
+  } catch (e) {
+    console.log(chalk.red('Failed to create schema for "user.logged_in" event:'));
+    console.log(e);
+  }
+}
+
+async function promptRedirectURI() {
+  console.log('Step 7: Set redirect URI in WorkOS dashboard');
+  console.log(
+    'Set the redirect URI to: http://localhost:3000/callback in the WorkOS dashboard in the "Redirects" section',
+  );
+  return await question('Hit enter after you have set the redirect URI');
+}
+
+async function promptRoleCreation() {
+  console.log('Step 8: Create roles in WorkOS');
+  console.log('Add the "Admin" role in the WorkOS dashboard in the "Roles" section');
+  return await question('Hit enter after you have created the "Admin" role');
+}
+
 async function writeEnvFile(envVars: Record<string, string>) {
-  console.log('Step 6: Writing environment variables to .env');
+  console.log('Step 9: Writing environment variables to .env');
   const envContent = Object.entries(envVars)
     .map(([key, value]) => `${key}=${value}`)
     .join('\n');
@@ -102,6 +146,10 @@ async function main() {
   const NEXT_PUBLIC_WORKOS_REDIRECT_URI = 'http://localhost:3000/callback';
   const WORKOS_COOKIE_PASSWORD = generateAuthSecret();
 
+  await setAuditLogSchema(WORKOS_API_KEY);
+
+  await promptRedirectURI();
+  await promptRoleCreation();
   await writeEnvFile({
     STRIPE_API_KEY,
     WORKOS_API_KEY,
