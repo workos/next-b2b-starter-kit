@@ -39,8 +39,6 @@ The `schema.ts` will be used to create empty `users` and `organizations` tables.
 - Enable the events you'd like to receive
 - Click _Create Webhook_
 
-_As of right now, the `workos-webhook` (located in `convex/http.ts`) only supports `user.created` and `organization.created` events._
-
 ## Set the new WorkOS webhook's Signing Secret as a deployment variable in Convex
 
 ```bash
