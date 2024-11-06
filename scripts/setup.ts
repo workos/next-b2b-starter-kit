@@ -173,7 +173,7 @@ async function setupConvex() {
     process.exit(1);
   }
 
-  const projectName = await question('Enter a name for your Convex project: ');
+  const projectName = await question('\nEnter a name for your Convex project: ');
 
   try {
     console.log('Creating new Convex project...');
@@ -186,19 +186,36 @@ async function setupConvex() {
   }
 }
 
-async function setupWorkOSWebhook(workosApiKey: string) {
-  console.log(`\n${chalk.bold('Step 10:')} Setting up WorkOS webhook`);
+async function setupStripeWebhook(stripeApiKey: string, webhookUrl: string) {
+  console.log(`\n${chalk.bold('Step 10:')} Setting up Stripe webhooks`);
 
-  // read from .env.local and extract the NEXT_PUBLIC_CONVEX_URL
-  const env = await fs.readFile(path.join(process.cwd(), '.env.local'), 'utf8');
-  const convexUrl = env.match(/NEXT_PUBLIC_CONVEX_URL=(.*)/)?.[1];
+  const stripe = new Stripe(stripeApiKey);
 
-  const workOSWebhookUrl = convexUrl?.replace('.cloud', '.site') + '/workos-webhook';
+  try {
+    const endpoint = await stripe.webhookEndpoints.create({
+      enabled_events: ['checkout.session.completed'],
+      url: webhookUrl,
+    });
+
+    console.log(chalk.green('Stripe webhook created successfully'));
+
+    console.log('\nAdding Stripe endpoint secret as deployment variable in Convex');
+    await execAsync(`npx convex env set STRIPE_WEBHOOK_SECRET ${endpoint.secret}`);
+    console.log(chalk.green('Stripe endpoint secret set as deployment variable in Convex'));
+  } catch (error) {
+    console.log(chalk.red('Failed to create Stripe webhook'));
+    console.log(error);
+    process.exit(1);
+  }
+}
+
+async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
+  console.log(`\n${chalk.bold('Step 11:')} Setting up WorkOS webhook`);
 
   console.log('Add a new webhook to WorkOS:');
   console.log(`1. Navigate to the ${chalk.bold('Webhooks')} page in the WorkOS dashboard`);
   console.log(`2. Click ${chalk.bold('Create Webhook')}`);
-  console.log(`3. Paste the following URL into the ${chalk.bold('URL')} field: ${workOSWebhookUrl}`);
+  console.log(`3. Paste the following URL into the ${chalk.bold('URL')} field: ${webhookUrl}`);
   console.log(
     `4. Enable the following events: user.created, user.updated, user.deleted, organization.created, organization.deleted`,
   );
@@ -230,13 +247,15 @@ async function setupWorkOSWebhook(workosApiKey: string) {
 
 async function main() {
   const STRIPE_API_KEY = await getStripeSecretKey();
+
+  await generateStripeProducts(STRIPE_API_KEY);
+
   const WORKOS_API_KEY = await getWorkOSSecretKey();
   const WORKOS_CLIENT_ID = await getWorkOSClientId();
   const NEXT_PUBLIC_WORKOS_REDIRECT_URI = 'http://localhost:3000/callback';
   const WORKOS_COOKIE_PASSWORD = generateAuthSecret();
 
   await setAuditLogSchema(WORKOS_API_KEY);
-  await generateStripeProducts(STRIPE_API_KEY);
 
   await promptRedirectURI();
   await promptRoleCreation();
@@ -248,8 +267,14 @@ async function main() {
     WORKOS_COOKIE_PASSWORD,
   });
 
+  // read from .env.local and extract the NEXT_PUBLIC_CONVEX_URL
+  const env = await fs.readFile(path.join(process.cwd(), '.env.local'), 'utf8');
+  const convexUrl = env.match(/NEXT_PUBLIC_CONVEX_URL=(.*)/)?.[1];
+  const webhookUrl = convexUrl?.replace('.cloud', '.site') + '/workos-webhook';
+
   await setupConvex();
-  await setupWorkOSWebhook(WORKOS_API_KEY);
+  await setupStripeWebhook(STRIPE_API_KEY, webhookUrl);
+  await setupWorkOSWebhook(WORKOS_API_KEY, webhookUrl);
 
   console.log('\n🎉 Setup completed successfully!');
   console.log('You can now start the development server with: pnpm run dev');
