@@ -68,8 +68,8 @@ export async function Pricing() {
                 </Flex>
               </Flex>
               <Flex direction="column" gap="2">
-                {plan.features.map((feature) => (
-                  <Flex key={feature} align="center" gap="2">
+                {plan.features.map((feature, index) => (
+                  <Flex key={index} align="center" gap="2">
                     <CheckIcon />
                     <Text size="1">{feature}</Text>
                   </Flex>

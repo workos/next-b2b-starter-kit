@@ -1,4 +1,5 @@
 import { Header } from './components/layout/header';
+import { Footer } from './components/layout/footer';
 import NextTopLoader from 'nextjs-toploader';
 import { Inter } from 'next/font/google';
 import { Box, Flex } from '@radix-ui/themes';
@@ -20,18 +21,19 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} overflow-hidden `} suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className}`}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <DynamicBackground>
             <NextTopLoader showSpinner={false} />
-            <Flex direction="column">
-              <Box flexGrow="1">
-                <Header />
+            <Flex direction="column" height="100vh">
+              <Header />
+              <Box flexGrow="1" asChild>
+                <main>
+                  <AuthKitProvider>{children}</AuthKitProvider>
+                </main>
               </Box>
-              <Box flexGrow="1">
-                <AuthKitProvider>{children}</AuthKitProvider>
-              </Box>
+              <Footer />
             </Flex>
           </DynamicBackground>
         </ThemeProvider>

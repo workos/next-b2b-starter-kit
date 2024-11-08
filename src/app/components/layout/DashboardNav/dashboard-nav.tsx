@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Box, Button, Flex } from '@radix-ui/themes';
+import { Box, Flex } from '@radix-ui/themes';
 import { ArrowRightIcon, PersonIcon, GearIcon, DashboardIcon, ArchiveIcon } from '@radix-ui/react-icons';
 import { usePathname } from 'next/navigation';
 import styles from './page.module.css';
