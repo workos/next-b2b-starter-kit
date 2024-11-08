@@ -300,9 +300,7 @@ async function main() {
   await setupStripeWebhook(STRIPE_API_KEY, webhookUrl + '/stripe-webhook');
   await setupWorkOSWebhook(WORKOS_API_KEY, webhookUrl + '/workos-webhook');
 
-  console.log('\n🎉 Setup completed successfully! Deleting setup folder...');
-
-  await execAsync('rm -rf scripts');
+  console.log('\n🎉 Setup completed successfully!');
 
   console.log('\nYou can now start the development server with: pnpm run dev');
 }

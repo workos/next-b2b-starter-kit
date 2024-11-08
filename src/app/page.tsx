@@ -75,7 +75,9 @@ export default async function Home() {
         </Flex>
 
         <CopyButton copyValue="npx b2b-starter-kit@latest --template">
-          <Code size="4">npx b2b-starter-kit@latest --template</Code>
+          <Code variant="ghost" size="4">
+            npx b2b-starter-kit init
+          </Code>
         </CopyButton>
         <Grid columns="3" gap="6" mt="3" maxWidth="70vw">
           {features.map((feature) => (
