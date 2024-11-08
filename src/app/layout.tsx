@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="light">
+        <ThemeProvider defaultTheme="light">
           <DynamicBackground>
             <NextTopLoader showSpinner={false} />
             <Flex direction="column" height="100vh">
