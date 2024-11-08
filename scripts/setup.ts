@@ -235,7 +235,7 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
   console.log('Add a new webhook to WorkOS:\n');
   console.log(`1. Navigate to the ${chalk.bold('Webhooks')} page in the WorkOS dashboard`);
   console.log(`2. Click ${chalk.bold('Create Webhook')}`);
-  console.log(`3. Paste the following URL into the ${chalk.bold.blue('URL')} field: ${chalk.bold(webhookUrl)}`);
+  console.log(`3. Paste the following URL into the 'URL' field: ${chalk.blue.bold(webhookUrl)}`);
   console.log(
     `4. Enable the following events: user.created, user.updated, user.deleted, organization.created, organization.deleted`,
   );
