@@ -266,9 +266,6 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
 }
 
 async function main() {
-  console.log('Installing dependencies...');
-  await execAsync('pnpm install');
-
   const STRIPE_API_KEY = await getStripeSecretKey();
 
   await generateStripeProducts(STRIPE_API_KEY);

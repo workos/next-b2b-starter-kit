@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "setup": "npx tsx scripts/setup.ts"
+    "setup": "pnpm install && npx tsx scripts/setup.ts"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.0",
