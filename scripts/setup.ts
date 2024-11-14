@@ -211,7 +211,7 @@ async function setupStripeWebhook(stripeApiKey: string, webhookUrl: string) {
 
     console.log('\nAdding Stripe endpoint signing secret as deployment variable in Convex');
     await execAsync(`npx convex env set STRIPE_WEBHOOK_SECRET ${endpoint.secret}`);
-    console.log(chalk.green('Stripe endpoint signging secret set as deployment variable in Convex'));
+    console.log(chalk.green('Stripe endpoint signing secret set as deployment variable in Convex'));
   } catch (error) {
     console.log(chalk.red('Failed to create Stripe webhook'));
     console.log(error);

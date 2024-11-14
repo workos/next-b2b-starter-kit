@@ -16,15 +16,38 @@ export const POST = async (req: NextRequest) => {
       roleSlug: 'admin',
     });
 
-    // TODO: Store the org ID on the user here
-
     // Retrieve price ID from Stripe
     // The Stripe look up key for the price *must* be the same as the subscription level string
-    const price = await stripe.prices.list({
-      lookup_keys: [subscriptionLevel],
+    let price;
+
+    try {
+      price = await stripe.prices.list({
+        lookup_keys: [subscriptionLevel],
+      });
+    } catch (error) {
+      console.error(
+        'Error retrieving price from Stripe. This is likely because the products and prices have not been created yet. Run the setup script `pnpm run setup` to automatically create them.',
+        error,
+      );
+      return NextResponse.json({ error: 'Error retrieving price from Stripe' }, { status: 500 });
+    }
+
+    const user = await workos.userManagement.getUser(userId);
+
+    // Create Stripe customer
+    const customer = await stripe.customers.create({
+      email: user.email,
+    });
+
+    // Update WorkOS organization with Stripe customer ID
+    // This will allow WorkOS to automatically add entitlements to the access token
+    await workos.organizations.updateOrganization({
+      organization: organization.id,
+      stripeCustomerId: customer.id,
     });
 
     const session = await stripe.checkout.sessions.create({
+      customer: customer.id,
       billing_address_collection: 'auto',
       line_items: [
         {
