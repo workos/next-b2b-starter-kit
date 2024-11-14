@@ -5,7 +5,7 @@ import { withAuth } from '@workos-inc/authkit-nextjs';
 import { workos } from '../../api/workos';
 
 export default async function Users() {
-  const { user, organizationId } = await withAuth({ ensureSignIn: true });
+  const { user, organizationId } = await withAuth({ ensureSignedIn: true });
 
   if (!organizationId) {
     return <div>No organization found</div>;
