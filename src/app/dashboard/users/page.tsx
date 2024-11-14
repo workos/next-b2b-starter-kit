@@ -1,6 +1,26 @@
 import { Box, Flex, Text, Heading } from '@radix-ui/themes';
 
-export default function Users() {
+import { UsersManagement, WorkOsWidgets } from '@workos-inc/widgets';
+import { withAuth } from '@workos-inc/authkit-nextjs';
+import { workos } from '../../api/workos';
+
+export default async function Users() {
+  const { user, organizationId } = await withAuth({ ensureSignIn: true });
+
+  if (!organizationId) {
+    return <div>No organization found</div>;
+  }
+
+  console.log(organizationId);
+
+  const authToken = await workos.widgets.getToken({
+    organizationId,
+    userId: user.id,
+    scopes: ['widgets:users-table:manage'],
+  });
+
+  console.log(authToken);
+
   return (
     <Flex direction="column" gap="3" width="100%">
       <Box>
@@ -13,7 +33,9 @@ export default function Users() {
         style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
         direction="column"
       >
-        <Text>TODO: Add users table</Text>
+        <WorkOsWidgets>
+          <UsersManagement authToken={authToken} />
+        </WorkOsWidgets>
       </Flex>
     </Flex>
   );
