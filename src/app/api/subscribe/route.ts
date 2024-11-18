@@ -37,6 +37,9 @@ export const POST = async (req: NextRequest) => {
     // Create Stripe customer
     const customer = await stripe.customers.create({
       email: user.email,
+      metadata: {
+        workOSOrganizationId: organization.id,
+      },
     });
 
     // Update WorkOS organization with Stripe customer ID
@@ -56,13 +59,14 @@ export const POST = async (req: NextRequest) => {
         },
       ],
       mode: 'subscription',
-      success_url: 'http://localhost:3000/router',
-      cancel_url: 'http://localhost:3000/pricing',
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing`,
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (e: unknown) {
-    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+    console.error(errorMessage, error);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 };

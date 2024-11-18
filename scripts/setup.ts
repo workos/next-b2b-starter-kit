@@ -272,7 +272,8 @@ async function main() {
 
   const WORKOS_API_KEY = await getWorkOSSecretKey();
   const WORKOS_CLIENT_ID = await getWorkOSClientId();
-  const NEXT_PUBLIC_WORKOS_REDIRECT_URI = 'http://localhost:3000/callback';
+  const NEXT_PUBLIC_BASE_URL = 'http://localhost:3000';
+  const NEXT_PUBLIC_WORKOS_REDIRECT_URI = `${NEXT_PUBLIC_BASE_URL}/callback`;
   const WORKOS_COOKIE_PASSWORD = generateAuthSecret();
 
   await setAuditLogSchema(WORKOS_API_KEY);
@@ -285,6 +286,7 @@ async function main() {
     WORKOS_CLIENT_ID,
     NEXT_PUBLIC_WORKOS_REDIRECT_URI,
     WORKOS_COOKIE_PASSWORD,
+    NEXT_PUBLIC_BASE_URL,
   });
 
   await setupConvex();
