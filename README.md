@@ -6,7 +6,8 @@ A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and Wor
 
 - Marketing splash page (`/`)
 - Pricing page (`/pricing`) which allows signed in users to subscribe via Stripe Checkout
-- Dashboard page (`/dashboard`) which is only accessible to admin users. Includes CRUD for users, audit logs and configuring SSO and billing.
+- Dashboard page (`/dashboard`) which is only accessible to admin users. Includes CRUD for users, audit logs and configuring SSO and billing
+- Product page (`/product`) which is only accessible to signed in users
 - Role-based access control
 - Audit logs
 - Billing
@@ -20,8 +21,6 @@ A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and Wor
 - Payments: Stripe
 
 ## Getting Started
-
-### Setup
 
 1. Clone the repo
 2. Run `pnpm install` to install dependencies
