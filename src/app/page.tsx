@@ -74,9 +74,9 @@ export default async function Home() {
           </Text>
         </Flex>
 
-        <CopyButton copyValue="npx b2b-starter-kit@latest --template">
+        <CopyButton copyValue="git clone https://github.com/workos/b2b-starter-kit.git">
           <Code variant="ghost" size="4">
-            npx b2b-starter-kit init
+            git clone https://github.com/workos/b2b-starter-kit.git
           </Code>
         </CopyButton>
         <Grid columns="3" gap="6" mt="3" maxWidth="70vw">

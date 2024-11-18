@@ -4,8 +4,8 @@ import { signOut as workosSignOut, withAuth } from '@workos-inc/authkit-nextjs';
 import { workos } from '../app/api/workos';
 import { headers } from 'next/headers';
 
-export default async function signOut() {
-  const { organizationId, user } = await withAuth();
+export default async function authkitSignOut() {
+  const { organizationId, role, user } = await withAuth();
 
   // get headers from next request
   const requestHeaders = await headers();
@@ -19,11 +19,15 @@ export default async function signOut() {
         type: 'user',
         id: user?.id,
         name: user?.firstName + ' ' + user?.lastName,
+        metadata: {
+          role: role || '',
+        },
       },
       targets: [
         {
           type: 'user',
           id: user?.id,
+          metadata: {},
         },
       ],
       context: {

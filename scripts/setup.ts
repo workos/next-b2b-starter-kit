@@ -148,7 +148,7 @@ async function setAuditLogSchema(workosApiKey: string) {
 
     console.log(chalk.green('Created schema for "user.logged_out" event'));
   } catch (error) {
-    console.log(chalk.red('Failed to create schema for "user.logged_in" event:'));
+    console.log(chalk.red('Failed to create schemas for "user.logged_in" and "user.logged_out" events:'));
     console.log(error);
   }
 }

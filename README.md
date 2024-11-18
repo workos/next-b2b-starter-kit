@@ -23,10 +23,6 @@ A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and Wor
 
 ### Setup
 
-```
-npx github:workos-inc/b2b-starter-kit@latest setup
-```
-
 1. Clone the repo
 2. Run `pnpm install` to install dependencies
 3. Run `pnpm run setup` to set up the app

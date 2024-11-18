@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PersonIcon } from '@radix-ui/react-icons';
 import { usePathname } from 'next/navigation';
 import { User } from '@workos-inc/node';
-import { authkitSignOut } from '../../actions/authkit-signout';
+import authkitSignOut from '@/actions/signOut';
 import { useState } from 'react';
 
 export function UserNav({ user, role }: { user: User; role: string | undefined; entitlements: string[] }) {
