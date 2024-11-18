@@ -4,6 +4,7 @@ import { GeneratePortalLinkIntent } from '@workos-inc/node';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import Link from 'next/link';
 import { UpgradeButton } from '@/app/components/upgrade-button';
+import { DashboardContainer } from '@/app/components/layout/dashboard-container';
 
 export default async function SettingsPage() {
   const { organizationId } = await withAuth({ ensureSignedIn: true });
@@ -18,18 +19,7 @@ export default async function SettingsPage() {
       <Box>
         <Heading>Dashboard</Heading>
       </Box>
-      <Flex
-        flexGrow="1"
-        align="stretch"
-        p="4"
-        style={{
-          borderRadius: 'var(--radius-3)',
-          backgroundColor: 'white',
-          border: '1px solid var(--gray-3)',
-        }}
-        direction="column"
-        gap="3"
-      >
+      <DashboardContainer>
         <Text size="4">Single Sign-On</Text>
         <Text size="2" color="gray">
           Setup or modify an existing SSO connection
@@ -39,19 +29,8 @@ export default async function SettingsPage() {
             <Link href={workOSAdminPortalLink}>Configure</Link>
           </Button>
         </Box>
-      </Flex>
-      <Flex
-        flexGrow="1"
-        align="stretch"
-        p="4"
-        style={{
-          borderRadius: 'var(--radius-3)',
-          backgroundColor: 'white',
-          border: '1px solid var(--gray-3)',
-        }}
-        direction="column"
-        gap="3"
-      >
+      </DashboardContainer>
+      <DashboardContainer>
         <Text size="4">Payments & Subscriptions</Text>
         <Text size="2" color="gray">
           Update payment method or change plans
@@ -59,7 +38,7 @@ export default async function SettingsPage() {
         <Box>
           <UpgradeButton path="settings">Configure</UpgradeButton>
         </Box>
-      </Flex>
+      </DashboardContainer>
     </Flex>
   );
 }

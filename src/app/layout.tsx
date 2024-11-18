@@ -8,9 +8,9 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 import '@radix-ui/themes/styles.css';
-import ThemeProvider from './components/layout/ThemeToggle/theme-provider';
+import { ThemeProvider } from 'next-themes';
 import { AuthKitProvider } from '@workos-inc/authkit-nextjs';
-import { DynamicBackground } from './components/layout/DynamicBackground';
+import { DynamicBackground } from './components/layout/dynamic-background';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
-        <ThemeProvider defaultTheme="light">
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <DynamicBackground>
             <NextTopLoader showSpinner={false} />
             <Flex direction="column" height="100vh">

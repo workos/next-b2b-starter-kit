@@ -2,6 +2,8 @@
 
 A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and WorkOS.
 
+Demo: https://b2b-starter-kit.vercel.app/
+
 ## Features
 
 - Marketing splash page (`/`)
@@ -26,3 +28,12 @@ A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and Wor
 2. Run `pnpm install` to install dependencies
 3. Run `pnpm run setup` to set up the app
 4. Run `pnpm run dev` to start the development server
+
+## Testing
+
+When running locally or using the deployed [demo app](https://b2b-starter-kit.vercel.app/), use the following test card numbers for the Stripe Checkout flow:
+
+- Card number: 4242 4242 4242 4242
+- CVC: Any 3 digits
+- Expiration Date: Any future date
+- ZIP: Any 5 digits

@@ -1,3 +1,7 @@
 .productFeature::before {
   background: linear-gradient(to right, #FFFFFF, #F8FAFF);
 }
+
+:global(.dark) .productFeature::before {
+  background: linear-gradient(to right, #000000, #1a1a1a);
+}

@@ -5,6 +5,7 @@ import { withAuth } from '@workos-inc/authkit-nextjs';
 import { workos } from '@/app/api/workos';
 import { GeneratePortalLinkIntent } from '@workos-inc/node';
 import { UpgradeButton } from '@/app/components/upgrade-button';
+import { DashboardContainer } from '@/app/components/layout/dashboard-container';
 
 async function getEntitlements(accessToken?: string): Promise<string[]> {
   if (!accessToken) return [];
@@ -35,14 +36,7 @@ export default async function AuditLogs() {
       <Box>
         <Heading>Audit Logs</Heading>
       </Box>
-      <Flex
-        flexGrow="1"
-        align="stretch"
-        p="4"
-        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
-        direction="column"
-        gap="3"
-      >
+      <DashboardContainer>
         {!entitlements.includes('audit-logs') ? (
           <Callout.Root color="blue" style={{ width: '100%' }}>
             <Flex align="center" justify="between" gap="3">
@@ -60,7 +54,7 @@ export default async function AuditLogs() {
             </Button>
           </Box>
         )}
-      </Flex>
+      </DashboardContainer>
     </Flex>
   );
 }

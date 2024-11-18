@@ -1,6 +1,7 @@
 import { Box, Flex, Text, Heading } from '@radix-ui/themes';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import { redirect } from 'next/navigation';
+import { DashboardContainer } from '../components/layout/dashboard-container';
 
 export default async function DashboardPage() {
   const session = await withAuth({ ensureSignedIn: true });
@@ -15,15 +16,9 @@ export default async function DashboardPage() {
       <Box>
         <Heading>Dashboard</Heading>
       </Box>
-      <Flex
-        flexGrow="1"
-        align="stretch"
-        p="4"
-        style={{ borderRadius: 'var(--radius-3)', backgroundColor: 'white', border: '1px solid var(--gray-3)' }}
-        direction="column"
-      >
+      <DashboardContainer>
         <Text>Use this area to build your dashboard.</Text>
-      </Flex>
+      </DashboardContainer>
     </Flex>
   );
 }

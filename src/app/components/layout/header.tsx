@@ -1,9 +1,9 @@
 import { Box, Flex, Link, Text } from '@radix-ui/themes';
-import Image from 'next/image';
 import { UserNav } from './user-nav';
-import ThemeToggle from './ThemeToggle/theme-toggle';
+import ThemeToggle from './theme-toggle';
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import { SignInButton } from '../sign-in-button';
+import { Logo } from '../logo';
 
 export async function Header() {
   const { user, role } = await withAuth();
@@ -12,7 +12,7 @@ export async function Header() {
     <Flex direction="row" justify="between" pb="4" pt="4">
       <Box pl="9">
         <Link href="/">
-          <Image src="/logos/superapp_logo.svg" className="logo" alt="SuperApp logo" width={144} height={24} />
+          <Logo />
         </Link>
       </Box>
       <Box pr="9">
@@ -23,6 +23,7 @@ export async function Header() {
                 <Text>Pricing</Text>
               </Link>
               <SignInButton />
+              <ThemeToggle />
             </>
           )}
           {user && role && (
