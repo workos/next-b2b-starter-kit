@@ -63,22 +63,21 @@ const features = [
 export default async function Home() {
   return (
     <Flex justify="center" align="center" height="100%">
-      <Flex direction="column" gap="5" justify="center" align="center" maxWidth="75vw">
-        <Flex direction="column" justify="center" align="center" maxWidth="50vw">
+      <Flex direction="column" gap="9" justify="center" align="center" maxWidth="75vw">
+        <Flex direction="column" justify="center" align="center" maxWidth="50vw" gap="5">
           <Heading size="9" align="center">
             B2B Starter Kit
           </Heading>
-          <Text mt="6" size="7" align="center">
+          <Text size="7" align="center">
             Quickly build and deploy your B2B SaaS application using modern frameworks designed for seamless scaling for
             enterprise customers.
           </Text>
+          <CopyButton copyValue="git clone https://github.com/workos/b2b-starter-kit.git">
+            <Code variant="ghost" size="4">
+              git clone https://github.com/workos/b2b-starter-kit.git
+            </Code>
+          </CopyButton>
         </Flex>
-
-        <CopyButton copyValue="git clone https://github.com/workos/b2b-starter-kit.git">
-          <Code variant="ghost" size="4">
-            git clone https://github.com/workos/b2b-starter-kit.git
-          </Code>
-        </CopyButton>
         <Grid columns="3" gap="6" mt="3" maxWidth="70vw">
           {features.map((feature) => (
             <Card className={styles.productFeature} size="2" key={feature.title}>

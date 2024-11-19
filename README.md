@@ -1,8 +1,12 @@
 # B2B Starter Kit
 
+[![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and WorkOS.
 
 Demo: https://b2b-starter-kit.vercel.app/
+
+![Screenshot of splash page](./public/splash_page.jpeg)
 
 ## Features
 
@@ -37,3 +41,7 @@ When running locally or using the deployed [demo app](https://b2b-starter-kit.ve
 - CVC: Any 3 digits
 - Expiration Date: Any future date
 - ZIP: Any 5 digits
+
+## Deploying
+
+Once you're ready to deploy your app, refer to the [Convex documentation](https://docs.convex.dev/production) for instructions.
