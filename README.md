@@ -35,19 +35,22 @@
 - Billing
 - Webhook syncing to Convex
 
+## Install
+
+```bash
+git clone https://github.com/workos/b2b-starter-kit.git
+cd b2b-starter-kit
+pnpm install
+pnpm run setup
+pnpm run dev
+```
+
 ## Tech stack
 
 - Framework: Next.js
 - Database: Convex
 - Authentication: AuthKit by WorkOS
 - Payments: Stripe
-
-## Getting Started
-
-1. Clone the repo
-2. Run `pnpm install` to install dependencies
-3. Run `pnpm run setup` to set up the app
-4. Run `pnpm run dev` to start the development server
 
 ## App flow
 
