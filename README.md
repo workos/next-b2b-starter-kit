@@ -1,12 +1,28 @@
-# B2B Starter Kit
+<p align="center">
+  <img src="./public/splash_page.jpeg" alt="Screenshot of splash page"/>
+  <h1 align="center">B2B Starter Kit</h1>
+</p>
 
-[![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and WorkOS.
+</p>
 
-A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and WorkOS.
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/>
+  </a>
+  <a href="https://b2b-starter-kit.vercel.app/">
+    <img src="https://img.shields.io/badge/Demo-Website-blue" alt="Demo: Website"/>
+  </a>
+</p>
 
-Demo: https://b2b-starter-kit.vercel.app/
+<p align="center">
+  Demo: <a href="https://b2b-starter-kit.vercel.app/">https://b2b-starter-kit.vercel.app/</a>
+</p>
 
-![Screenshot of splash page](./public/splash_page.jpeg)
+<p align="center">
+  Read about the <a href="https://workos.com/blog/launch-week-fall-2024-day-5-b2b-starter-kit">B2B Starter Kit</a> on the WorkOS blog.
+</p>
 
 ## Features
 
@@ -52,4 +68,6 @@ When running locally or using the deployed [demo app](https://b2b-starter-kit.ve
 
 ## Deploying
 
-Once you're ready to deploy your app, refer to the [Convex documentation](https://docs.convex.dev/production) for instructions.
+Once you're ready to deploy your app, refer to the [Convex documentation](https://docs.convex.dev/production) for instructions on deploying to hosted solutions like Vercel.
+
+Remember to use your production API keys for both Stripe and WorkOS before deploying to production.
