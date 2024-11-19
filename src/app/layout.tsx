@@ -26,12 +26,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ThemeProvider attribute="class" defaultTheme="dark">
           <DynamicBackground>
             <NextTopLoader showSpinner={false} />
-            <Flex direction="column" height="100vh">
+            <Flex direction="column" minHeight="100vh">
               <Header />
               <Box flexGrow="1" asChild>
-                <main>
-                  <AuthKitProvider>{children}</AuthKitProvider>
-                </main>
+                <AuthKitProvider>{children}</AuthKitProvider>
               </Box>
               <Footer />
             </Flex>
