@@ -35,13 +35,29 @@
 - Billing
 - Webhook syncing to Convex
 
-## Install
+## Getting started
+
+### Clone the repo
 
 ```bash
 git clone https://github.com/workos/b2b-starter-kit.git
-cd b2b-starter-kit
+```
+
+### Install dependencies
+
+```bash
 pnpm install
+```
+
+### Run the setup script
+
+```bash
 pnpm run setup
+```
+
+### Start the development server
+
+```bash
 pnpm run dev
 ```
 
@@ -58,7 +74,7 @@ After viewing your marketing splash page (`/`) and pricing page (`/pricing`), us
 
 Once signed up, users with the "admin" role can access the dashboard (`/dashboard`) where they can manage users, configure SSO and billing, and view audit logs. Note that in the default example, audit logs are only accessible when subscribed to the "Enterprise" plan.
 
-Users without the "admin" role are instead redirected to the product page (`/product`) where they can view information about your product.
+Users without the "admin" role are instead redirected to the product page (`/product`) where they can interact with your product.
 
 ## Testing
 
