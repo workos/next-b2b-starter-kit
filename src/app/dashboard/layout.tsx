@@ -4,8 +4,8 @@ import { Flex } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'SuperApp Dashboard',
-  description: 'Basic B2B dashboard with Next.js and Radix',
+  title: 'B2B Starter Kit Dashboard',
+  description: 'Fully featured B2B dashboard with Next.js, Radix UI, and WorkOS',
 };
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

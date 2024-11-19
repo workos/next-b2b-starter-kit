@@ -91,6 +91,15 @@ async function generateStripeProducts(stripeApiKey: string) {
     console.log(chalk.red(`Failed to generate Stripe test mode prices: ${error}`));
     process.exit(1);
   }
+
+  console.log(
+    '\nFor automatic Stripe entitlements in access tokens, you need to connect your Stripe account to your WorkOS account.',
+  );
+  console.log(
+    'You can do this in the WorkOS dashboard in the "Integrations" section of the "Authentication" sidebar: https://dashboard.workos.com/',
+  );
+
+  await question('Hit enter after you have connected your Stripe account to your WorkOS account');
 }
 
 async function getWorkOSSecretKey(): Promise<string> {

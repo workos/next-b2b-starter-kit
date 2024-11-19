@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'B2B starter kit',
-  description: 'Basic B2B app with Next.js and Radix UI',
+  description: 'Fully featured B2B app with Next.js, Radix UI, and WorkOS',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

@@ -33,6 +33,14 @@ Demo: https://b2b-starter-kit.vercel.app/
 3. Run `pnpm run setup` to set up the app
 4. Run `pnpm run dev` to start the development server
 
+## App flow
+
+After viewing your marketing splash page (`/`) and pricing page (`/pricing`), users sign up before choosing a plan. This is so we can create an organization and link it to a Stripe customer.
+
+Once signed up, users with the "admin" role can access the dashboard (`/dashboard`) where they can manage users, configure SSO and billing, and view audit logs. Note that in the default example, audit logs are only accessible when subscribed to the "Enterprise" plan.
+
+Users without the "admin" role are instead redirected to the product page (`/product`) where they can view information about your product.
+
 ## Testing
 
 When running locally or using the deployed [demo app](https://b2b-starter-kit.vercel.app/), use the following test card numbers for the Stripe Checkout flow:
