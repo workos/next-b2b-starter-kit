@@ -100,3 +100,13 @@ When running locally or using the deployed [demo app](https://b2b-starter-kit.ve
 Once you're ready to deploy your app, refer to the [Convex documentation](https://docs.convex.dev/production) for instructions on deploying to hosted solutions like Vercel.
 
 Remember to use your production API keys for both Stripe and WorkOS before deploying to production.
+
+## Need to Sync more data?
+
+Learn more about the syncing system that connects [AuthKit](https://www.authkit.com/) and [Convex](https://www.convex.dev/).
+
+We made a short video series that covers the full integration.  
+Check it out on [YouTube](https://youtu.be/GGwBSu0XmP0?feature=shared).
+
+[![Sync Data with Webhooks](https://github.com/user-attachments/assets/7a2f2098-fc57-42d1-89dc-f0f00777857a)](https://youtu.be/GGwBSu0XmP0?feature=shared)
+
