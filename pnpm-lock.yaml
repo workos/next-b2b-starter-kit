@@ -21,8 +21,8 @@ dependencies:
     specifier: ^0.16.0
     version: 0.16.0(next@15.0.3)(react-dom@18.3.1)(react@18.3.1)
   '@workos-inc/node':
-    specifier: ^7.32.0
-    version: 7.32.0(next@15.0.3)
+    specifier: ^7.33.0
+    version: 7.33.0(next@15.0.3)
   '@workos-inc/widgets':
     specifier: 0.0.0-pre.3
     version: 0.0.0-pre.3(@tanstack/react-query@5.60.5)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1)(react@18.3.1)
@@ -2131,19 +2131,6 @@ packages:
     transitivePeerDependencies:
       - express
       - koa
-    dev: false
-
-  /@workos-inc/node@7.32.0(next@15.0.3):
-    resolution: {integrity: sha512-F7d4n0hOklfrBkX0+0IL1nPxGYH6209bLyYPvXfdmr0dzRIQHwuca2mLR51AgmqQcs3/B0KrnQSZWfw8mQQjNQ==}
-    engines: {node: '>=16'}
-    dependencies:
-      iron-session: 6.3.1(next@15.0.3)
-      jose: 5.6.3
-      pluralize: 8.0.0
-    transitivePeerDependencies:
-      - express
-      - koa
-      - next
     dev: false
 
   /@workos-inc/node@7.33.0(next@15.0.3):
