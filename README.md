@@ -1,6 +1,6 @@
 <p align="center">
   <img src="./public/splash_page.jpeg" alt="Screenshot of splash page"/>
-  <h1 align="center">B2B Starter Kit</h1>
+  <h1 align="center">Next.js B2B Starter Kit</h1>
 </p>
 
 <p align="center">
@@ -37,10 +37,20 @@
 
 ## Getting started
 
+### Prerequisites
+
+You'll need a [Convex](https://www.convex.dev/) account, a [Stripe](https://stripe.com/) account and a [WorkOS](https://workos.com/) account.
+
 ### Clone the repo
 
 ```bash
 git clone https://github.com/workos/b2b-starter-kit.git
+```
+
+### Navigate to the project directory
+
+```bash
+cd b2b-starter-kit
 ```
 
 ### Install dependencies

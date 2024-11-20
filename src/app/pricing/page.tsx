@@ -9,7 +9,7 @@ export default async function PricingPage() {
   return (
     <Flex align="center" justify="center" direction="column" gap="5" flexGrow="1">
       <Heading size="9">Pricing</Heading>
-      <Text mb="6">Your application&apos;s pricing page. The B2B Starter Kit is free to use.</Text>
+      <Text mb="6">Your application&apos;s pricing page. The Next.js B2B Starter Kit is free to use.</Text>
       <Pricing />
       {!user && (
         <Flex mt="6" direction="column" align="center" gap="3">

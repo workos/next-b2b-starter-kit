@@ -15,7 +15,7 @@ import { DynamicBackground } from './components/layout/dynamic-background';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'B2B starter kit',
+  title: 'Next.js B2B starter kit',
   description: 'Fully featured B2B app with Next.js, Radix UI, and WorkOS',
 };
 

@@ -66,7 +66,7 @@ export default async function Home() {
       <Flex direction="column" gap="9" justify="center" align="center" maxWidth="75vw">
         <Flex direction="column" justify="center" align="center" maxWidth="50vw" gap="5">
           <Heading size="9" align="center">
-            B2B Starter Kit
+            Next.js B2B Starter Kit
           </Heading>
           <Text size="7" align="center">
             Quickly build and deploy your B2B SaaS application using modern frameworks designed for seamless scaling for
