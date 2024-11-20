@@ -16,11 +16,9 @@ export default async function redirectToBillingPortal(path: string) {
   });
   const workosOrg = await response.json();
 
-  console.log('workosOrg', workosOrg);
-
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const billingPortalSession = await stripe.billingPortal.sessions.create({
-    customer: workosOrg?.stripeCustomerId,
+    customer: workosOrg?.stripe_customer_id,
     return_url: `${baseUrl}/dashboard/${path}`,
   });
 

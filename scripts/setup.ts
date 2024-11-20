@@ -250,7 +250,7 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
   console.log(`2. Click ${chalk.bold('Create Webhook')}`);
   console.log(`3. Paste the following URL into the 'URL' field: ${chalk.blue.bold(webhookUrl)}`);
   console.log(
-    `4. Enable the following events: user.created, user.updated, user.deleted, organization.created, organization.deleted`,
+    `4. Enable the following events: user.created, user.updated, user.deleted, organization.created, organization.deleted, organization.updated`,
   );
   console.log(`5. Click ${chalk.bold('Create Webhook')}`);
   console.log('\nCopy the webhook signing secret and enter it here:');

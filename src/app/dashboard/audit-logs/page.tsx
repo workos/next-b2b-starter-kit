@@ -1,35 +1,33 @@
+'use client';
+
 import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Heading, Flex, Box, Callout, Button } from '@radix-ui/themes';
+import { Heading, Flex, Box, Callout, Button, Skeleton } from '@radix-ui/themes';
 import Link from 'next/link';
-import { withAuth } from '@workos-inc/authkit-nextjs';
-import { workos } from '@/app/api/workos';
-import { GeneratePortalLinkIntent } from '@workos-inc/node';
 import { UpgradeButton } from '@/app/components/upgrade-button';
 import { DashboardContainer } from '@/app/components/layout/dashboard-container';
+import { refreshAuthkitSession } from '@/actions/refreshAuthkitSession';
+import { getAuditLogPortalLink } from '@/actions/getAuditLogPortalLink';
+import { useEffect, useState } from 'react';
 
-async function getEntitlements(accessToken?: string): Promise<string[]> {
-  if (!accessToken) return [];
+export default function AuditLogs() {
+  const [entitlements, setEntitlements] = useState<string[]>([]);
+  const [workOSAdminPortalLink, setWorkOSAdminPortalLink] = useState<string | null>('');
+  const [loading, setLoading] = useState(true);
 
-  try {
-    const [, payload] = accessToken.split('.');
-    const claims = JSON.parse(atob(payload));
-    return claims.entitlements ? claims.entitlements : [];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
+  useEffect(() => {
+    // Refresh the session to ensure we have the latest entitlements
+    const fetchEntitlements = async () => {
+      const response = await refreshAuthkitSession();
+      const session = JSON.parse(response);
+      const link = await getAuditLogPortalLink(session.organizationId);
 
-export default async function AuditLogs() {
-  // Refresh the session to ensure we have the latest entitlements
-  const { organizationId, accessToken } = await withAuth({ ensureSignedIn: true });
+      setEntitlements(session.entitlements);
+      setWorkOSAdminPortalLink(link);
+      setLoading(false);
+    };
 
-  const { link: workOSAdminPortalLink } = await workos.portal.generateLink({
-    organization: organizationId as string,
-    intent: GeneratePortalLinkIntent.AuditLogs,
-  });
-
-  const entitlements = await getEntitlements(accessToken);
+    fetchEntitlements();
+  }, []);
 
   return (
     <Flex direction="column" gap="3" width="100%">
@@ -37,23 +35,25 @@ export default async function AuditLogs() {
         <Heading>Audit Logs</Heading>
       </Box>
       <DashboardContainer>
-        {!entitlements.includes('audit-logs') ? (
-          <Callout.Root color="blue" style={{ width: '100%' }}>
-            <Flex align="center" justify="between" gap="3">
-              <Callout.Icon>
-                <InfoCircledIcon />
-              </Callout.Icon>
-              <Callout.Text>This feature is only available on the Enterprise level plan.</Callout.Text>
-              <UpgradeButton path="audit-logs">Upgrade to Enterprise</UpgradeButton>
-            </Flex>
-          </Callout.Root>
-        ) : (
-          <Box>
-            <Button variant="soft" style={{ cursor: 'pointer' }}>
-              <Link href={workOSAdminPortalLink}>View Audit Logs</Link>
-            </Button>
-          </Box>
-        )}
+        <Skeleton loading={loading}>
+          {!entitlements?.includes('audit-logs') ? (
+            <Callout.Root color="blue" style={{ width: '100%' }}>
+              <Flex align="center" justify="between" gap="3">
+                <Callout.Icon>
+                  <InfoCircledIcon />
+                </Callout.Icon>
+                <Callout.Text>This feature is only available on the Enterprise level plan.</Callout.Text>
+                <UpgradeButton path="audit-logs">Upgrade to Enterprise</UpgradeButton>
+              </Flex>
+            </Callout.Root>
+          ) : (
+            <Box>
+              <Button variant="soft" style={{ cursor: 'pointer' }}>
+                <Link href={workOSAdminPortalLink as string}>View Audit Logs</Link>
+              </Button>
+            </Box>
+          )}
+        </Skeleton>
       </DashboardContainer>
     </Flex>
   );

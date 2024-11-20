@@ -19,6 +19,7 @@ export const GET = async (request: NextRequest) => {
     });
 
     if (oms.data.length > 0) {
+      // @ts-expect-error will be fixed in the next version of @workos-inc/authkit-nextjs
       session = await refreshSession({
         organizationId: oms.data[0].organizationId,
         ensureSignedIn: true,

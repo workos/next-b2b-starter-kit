@@ -17,7 +17,7 @@ export async function Header() {
       </Box>
       <Box pr="9">
         <Flex gap="3" align="center">
-          {!user && !role && (
+          {!user && (
             <>
               <Link href="/pricing">
                 <Text>Pricing</Text>
@@ -26,8 +26,13 @@ export async function Header() {
               <ThemeToggle />
             </>
           )}
-          {user && role && (
+          {user && (
             <>
+              {!role && (
+                <Link href="/pricing">
+                  <Text>Pricing</Text>
+                </Link>
+              )}
               <ThemeToggle />
               <UserNav user={user} role={role} />
             </>
