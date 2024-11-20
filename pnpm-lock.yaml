@@ -24,8 +24,8 @@ dependencies:
     specifier: ^7.32.0
     version: 7.32.0(next@15.0.2)
   '@workos-inc/widgets':
-    specifier: 0.0.0-pre.1
-    version: 0.0.0-pre.1(@tanstack/react-query@5.60.5)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1)(react@18.3.1)
+    specifier: 0.0.0-pre.2
+    version: 0.0.0-pre.2(@tanstack/react-query@5.60.5)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1)(react@18.3.1)
   concurrently:
     specifier: ^9.1.0
     version: 9.1.0
@@ -2146,8 +2146,8 @@ packages:
       - next
     dev: false
 
-  /@workos-inc/widgets@0.0.0-pre.1(@tanstack/react-query@5.60.5)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-SNcn+ypwG4WDrcq4/YnrWGh6Y02l2kf553jk+WkUvrszkP5KxPBJX8wRbVZI74eCINMDDFY0hoPqtl2JvAUD1w==}
+  /@workos-inc/widgets@0.0.0-pre.2(@tanstack/react-query@5.60.5)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-LPzew7wjA1rIvRIHBj7GKfE7gIvZ/81MSkJN3TpgbV50/YGwK5mneLctYOd2KJIIPuG3vYK2BlTCBkbQw6lnFQ==}
     peerDependencies:
       '@tanstack/react-query': ^5.0.0
       react: '>=18'
@@ -2157,6 +2157,7 @@ packages:
       '@radix-ui/react-icons': 1.3.2(react@18.3.1)
       '@radix-ui/themes': 3.1.6(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1)(react@18.3.1)
       '@tanstack/react-query': 5.60.5(react@18.3.1)
+      clsx: 2.1.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       suspend-react: 0.1.3(react@18.3.1)
@@ -2422,6 +2423,11 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
+    dev: false
+
+  /clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
+    engines: {node: '>=6'}
     dev: false
 
   /color-convert@2.0.1:

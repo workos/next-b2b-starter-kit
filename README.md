@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  Demo: <a href="https://b2b-starter-kit.vercel.app/">https://b2b-starter-kit.vercel.app/</a>
+  Demo: <a href="https://next-b2b-starter-kit.vercel.app/">https://b2b-starter-kit.vercel.app/</a>
 </p>
 
 <p align="center">
@@ -44,13 +44,13 @@ You'll need a [Convex](https://www.convex.dev/) account, a [Stripe](https://stri
 ### Clone the repo
 
 ```bash
-git clone https://github.com/workos/b2b-starter-kit.git
+git clone https://github.com/workos/next-b2b-starter-kit.git
 ```
 
 ### Navigate to the project directory
 
 ```bash
-cd b2b-starter-kit
+cd next-b2b-starter-kit
 ```
 
 ### Install dependencies
