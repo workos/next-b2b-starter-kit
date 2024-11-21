@@ -108,13 +108,17 @@ async function connectStripeToWorkOS() {
 
 async function getWorkOSSecretKey(): Promise<string> {
   console.log(`\n${chalk.bold('Getting WorkOS API Keys')}`);
-  console.log('You can find your WorkOS API Key in the dashboard: https://dashboard.workos.com');
+  console.log(
+    'You can find your WorkOS API Key in the dashboard under the "Quick start" section: https://dashboard.workos.com/get-started',
+  );
   return await question('Enter your WorkOS API Key: ');
 }
 
 async function getWorkOSClientId(): Promise<string> {
   console.log(`\n${chalk.bold('Getting WorkOS Client ID')}`);
-  console.log('You can find your WorkOS Client ID in the dashboard: https://dashboard.workos.com');
+  console.log(
+    'You can find your WorkOS Client ID in the dashboard under the "Quick start" section: https://dashboard.workos.com/get-started',
+  );
   return await question('Enter your WorkOS Client ID: ');
 }
 
@@ -196,7 +200,7 @@ async function setupConvex() {
   console.log(`Log into Convex in a separate terminal window with: ${chalk.bold('npx convex login')}`);
   await question('Hit enter after you have logged into Convex');
 
-  const projectName = await question('\nEnter a name for your Convex project: ');
+  const projectName = await question('\nEnter a name for your new Convex project: ');
 
   try {
     console.log('Creating new Convex project (this will take a few moments)');
@@ -248,11 +252,12 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
   console.log('Add a new webhook to WorkOS:\n');
   console.log(`1. Navigate to the ${chalk.bold('Webhooks')} page in the WorkOS dashboard`);
   console.log(`2. Click ${chalk.bold('Create Webhook')}`);
-  console.log(`3. Paste the following URL into the 'URL' field: ${chalk.blue.bold(webhookUrl)}`);
+  console.log(`3. Paste the following URL into the 'Endpoint URL' field: ${chalk.blue.bold(webhookUrl)}`);
   console.log(
     `4. Enable the following events: user.created, user.updated, user.deleted, organization.created, organization.deleted, organization.updated`,
   );
-  console.log(`5. Click ${chalk.bold('Create Webhook')}`);
+  console.log(`5. Click ${chalk.bold('Create with 6 events')}`);
+  console.log(`6. Open the webhook endpoint you just created, copy the webhook signing secret, and enter it here:`);
   console.log('\nCopy the webhook signing secret and enter it here:');
 
   const workOSWebhookSecret = await question('WorkOS webhook secret: ');
