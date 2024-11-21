@@ -19,10 +19,13 @@ export default function AuditLogs() {
     const fetchEntitlements = async () => {
       const response = await refreshAuthkitSession();
       const session = JSON.parse(response);
-      const link = await getAuditLogPortalLink(session.organizationId);
+
+      if (session.entitlements?.includes('audit-logs')) {
+        const link = await getAuditLogPortalLink(session.organizationId);
+        setWorkOSAdminPortalLink(link);
+      }
 
       setEntitlements(session.entitlements);
-      setWorkOSAdminPortalLink(link);
       setLoading(false);
     };
 
