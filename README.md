@@ -11,17 +11,17 @@
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/>
   </a>
-  <a href="https://b2b-starter-kit.vercel.app/">
+  <a href="https://next-b2b-starter-kit.vercel.app/">
     <img src="https://img.shields.io/badge/Demo-Website-blue" alt="Demo: Website"/>
   </a>
 </p>
 
 <p align="center">
-  Demo: <a href="https://next-b2b-starter-kit.vercel.app/">https://b2b-starter-kit.vercel.app/</a>
+  Demo: <a href="https://next-b2b-starter-kit.vercel.app/">https://next-b2b-starter-kit.vercel.app/</a>
 </p>
 
 <p align="center">
-  Read about the <a href="https://workos.com/blog/launch-week-fall-2024-day-5-b2b-starter-kit">B2B Starter Kit</a> on the WorkOS blog.
+  Read about the <a href="https://workos.com/blog/nextjs-b2b-starter-kit">Next.js B2B Starter Kit</a> on the WorkOS blog.
 </p>
 
 ## Features
@@ -105,8 +105,7 @@ Remember to use your production API keys for both Stripe and WorkOS before deplo
 
 Learn more about the syncing system that connects [AuthKit](https://www.authkit.com/) and [Convex](https://www.convex.dev/).
 
-We made a short video series that covers the full integration.  
+We made a short video series that covers the full integration.
 Check it out on [YouTube](https://youtu.be/GGwBSu0XmP0?feature=shared).
 
 [![Sync Data with Webhooks](https://github.com/user-attachments/assets/7a2f2098-fc57-42d1-89dc-f0f00777857a)](https://youtu.be/GGwBSu0XmP0?feature=shared)
-
