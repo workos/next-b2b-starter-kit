@@ -26,8 +26,17 @@ function question(query: string): Promise<string> {
 
 async function getStripeSecretKey(): Promise<string> {
   console.log(`\n${chalk.bold('Getting Stripe Secret Key')}`);
-  console.log('You can find your Stripe Secret Key at: https://dashboard.stripe.com/test/apikeys');
-  return await question('Enter your Stripe Secret Key: ');
+  console.log('You can find your Stripe Test Secret Key at: https://dashboard.stripe.com/test/apikeys');
+  const key = await question('Enter your Stripe Secret Key: ');
+
+  if (key.includes('sk_test_')) {
+    return key;
+  }
+
+  console.log(chalk.red('Invalid Stripe Secret Key'));
+  console.log('Please use your test secret key and not your live secret key.');
+
+  return await getStripeSecretKey();
 }
 
 async function generateStripeProducts(stripeApiKey: string) {
@@ -111,7 +120,17 @@ async function getWorkOSSecretKey(): Promise<string> {
   console.log(
     'You can find your WorkOS API Key in the dashboard under the "Quick start" section: https://dashboard.workos.com/get-started',
   );
-  return await question('Enter your WorkOS API Key: ');
+
+  const key = await question('Enter your WorkOS API Key: ');
+
+  if (key.includes('sk_test_')) {
+    return key;
+  }
+
+  console.log(chalk.red('Invalid WorkOS Secret Key'));
+  console.log('Please use your test secret key and not your live secret key.');
+
+  return await getWorkOSSecretKey();
 }
 
 async function getWorkOSClientId(): Promise<string> {
@@ -286,9 +305,9 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
 async function main() {
   const STRIPE_API_KEY = await getStripeSecretKey();
 
-  await generateStripeProducts(STRIPE_API_KEY);
+  // await generateStripeProducts(STRIPE_API_KEY);
 
-  await connectStripeToWorkOS();
+  // await connectStripeToWorkOS();
 
   const WORKOS_API_KEY = await getWorkOSSecretKey();
   const WORKOS_CLIENT_ID = await getWorkOSClientId();
