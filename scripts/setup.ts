@@ -305,9 +305,9 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
 async function main() {
   const STRIPE_API_KEY = await getStripeSecretKey();
 
-  // await generateStripeProducts(STRIPE_API_KEY);
+  await generateStripeProducts(STRIPE_API_KEY);
 
-  // await connectStripeToWorkOS();
+  await connectStripeToWorkOS();
 
   const WORKOS_API_KEY = await getWorkOSSecretKey();
   const WORKOS_CLIENT_ID = await getWorkOSClientId();
