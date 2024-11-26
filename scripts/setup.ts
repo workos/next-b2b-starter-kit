@@ -118,10 +118,10 @@ async function connectStripeToWorkOS() {
 async function getWorkOSSecretKey(): Promise<string> {
   console.log(`\n${chalk.bold('Getting WorkOS API Keys')}`);
   console.log(
-    'You can find your WorkOS API Key in the dashboard under the "Quick start" section: https://dashboard.workos.com/get-started',
+    'You can find your test WorkOS API Key in the dashboard under the "Quick start" section: https://dashboard.workos.com/get-started',
   );
 
-  const key = await question('Enter your WorkOS API Key: ');
+  const key = await question('Enter your test WorkOS API Key: ');
 
   if (key.includes('sk_test_')) {
     return key;
