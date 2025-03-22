@@ -23,7 +23,7 @@
     "convex": "^1.15.0",
     "convex-helpers": "^0.1.58",
     "jose": "^5.9.3",
-    "next": "15.0.3",
+    "next": "15.2.3",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.6.15",
     "prettier": "^3.3.3",
