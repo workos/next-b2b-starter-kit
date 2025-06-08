@@ -26,7 +26,6 @@
     "next": "15.2.3",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.6.15",
-    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "stripe": "^16.12.0"
@@ -38,7 +37,8 @@
     "chalk": "^5.3.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "prettier": "^3.3.3"
   },
   "description": "A starter kit for B2B SaaS applications.",
   "main": "index.js",
