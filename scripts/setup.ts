@@ -10,11 +10,39 @@ import chalk from 'chalk';
 
 const execAsync = promisify(exec);
 
-function question(query: string): Promise<string> {
+function question(query: string, options: { secret?: boolean } = {}): Promise<string> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
+
+  if (options.secret) {
+    // Mask typed characters so secret values never appear in the console output
+    let muted = false;
+    const rlInternal = rl as unknown as { _writeToOutput: (s: string) => void };
+    const originalWriteToOutput = rlInternal._writeToOutput.bind(rl);
+    rlInternal._writeToOutput = (stringToWrite: string) => {
+      if (!muted) {
+        originalWriteToOutput(stringToWrite);
+        return;
+      }
+
+      if (stringToWrite === '\r\n' || stringToWrite === '\n' || stringToWrite === '\r') {
+        originalWriteToOutput(stringToWrite);
+        return;
+      }
+      originalWriteToOutput('*');
+    };
+
+    return new Promise((resolve) => {
+      rl.question(query, (ans) => {
+        rl.close();
+        process.stdout.write('\n');
+        resolve(ans);
+      });
+      muted = true;
+    });
+  }
 
   return new Promise((resolve) =>
     rl.question(query, (ans) => {
@@ -97,7 +125,8 @@ async function generateStripeProducts(stripeApiKey: string) {
 
     console.log(chalk.green('Stripe test mode products and prices generated successfully'));
   } catch (error) {
-    console.log(chalk.red(`Failed to generate Stripe test mode prices: ${error}`));
+    console.log(chalk.red('Failed to generate Stripe test mode prices:\n'));
+    console.error(error);
     process.exit(1);
   }
 }
@@ -109,7 +138,7 @@ async function connectStripeToWorkOS() {
     '\nFor automatic Stripe entitlements in access tokens, you need to connect your Stripe account to your WorkOS account.',
   );
   console.log(
-    'You can do this in the WorkOS dashboard in the "Integrations" section of the "Authentication" sidebar: https://dashboard.workos.com/',
+    'You can do this in the WorkOS dashboard in the "Add-ons" section of the "Authentication" sidebar: https://dashboard.workos.com/',
   );
 
   await question('Hit enter after you have connected your Stripe account to your WorkOS account');
@@ -121,7 +150,7 @@ async function getWorkOSSecretKey(): Promise<string> {
     'You can find your test WorkOS API Key in the dashboard under the "Quick start" section: https://dashboard.workos.com/get-started',
   );
 
-  const key = await question('Enter your test WorkOS API Key: ');
+  const key = await question('Enter your test WorkOS API Key: ', { secret: true });
 
   if (key.includes('sk_test_')) {
     return key;
@@ -205,12 +234,60 @@ async function promptRoleCreation() {
 
 async function writeEnvFile(envVars: Record<string, string>) {
   console.log(`\n${chalk.bold('Writing environment variables to .env')}`);
-  const envContent = Object.entries(envVars)
-    .map(([key, value]) => `${key}=${value}`)
-    .join('\n');
+  const envPath = path.join(process.cwd(), '.env.local');
 
-  await fs.writeFile(path.join(process.cwd(), '.env.local'), envContent);
-  console.log('.env.local file created with the necessary variables.');
+  let existingContent: string | null = null;
+  try {
+    existingContent = await fs.readFile(envPath, 'utf8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw error;
+    }
+  }
+
+  if (existingContent === null) {
+    const envContent = Object.entries(envVars)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('\n');
+
+    await fs.writeFile(envPath, envContent);
+    console.log('.env.local file created with the necessary variables.');
+    return;
+  }
+
+  const remaining = new Map(Object.entries(envVars));
+  const lines = existingContent.split('\n');
+
+  // Update matching entries in place, preserving the existing file's structure.
+  const updatedLines = lines.map((line) => {
+    const match = line.match(/^(\s*)([A-Za-z_][A-Za-z0-9_]*)=/);
+    if (!match) {
+      return line;
+    }
+
+    const key = match[2];
+    if (!remaining.has(key)) {
+      return line;
+    }
+
+    const value = remaining.get(key)!;
+    remaining.delete(key);
+    return `${match[1]}${key}=${value}`;
+  });
+
+  // Append any variables that weren't already present.
+  const newEntries = [...remaining].map(([key, value]) => `${key}=${value}`);
+
+  let output = updatedLines.join('\n');
+  if (newEntries.length > 0) {
+    if (output.length > 0 && !output.endsWith('\n')) {
+      output += '\n';
+    }
+    output += newEntries.join('\n');
+  }
+
+  await fs.writeFile(envPath, output);
+  console.log('.env.local file updated with the necessary variables.');
 }
 
 async function setupConvex() {
@@ -279,7 +356,7 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
   console.log(`6. Open the webhook endpoint you just created, copy the webhook signing secret, and enter it here:`);
   console.log('\nCopy the webhook signing secret and enter it here:');
 
-  const workOSWebhookSecret = await question('WorkOS webhook secret: ');
+  const workOSWebhookSecret = await question('WorkOS webhook secret: ', { secret: true });
 
   try {
     console.log('\nSetting WorkOS webhook signing secret as deployment variable in Convex');

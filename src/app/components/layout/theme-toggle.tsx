@@ -1,20 +1,15 @@
 'use client';
 
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/lib/next-themes';
 import { IconButton, DropdownMenu } from '@radix-ui/themes';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useIsHydrated } from '@/lib/use-is-hydrated';
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const isHydrated = useIsHydrated();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const Icon = mounted ? (resolvedTheme === 'light' ? SunIcon : MoonIcon) : SunIcon;
+  const Icon = isHydrated ? (resolvedTheme === 'light' ? SunIcon : MoonIcon) : SunIcon;
 
   return (
     <DropdownMenu.Root>

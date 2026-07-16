@@ -1,0 +1,7 @@
+node_modules/**
+convex/_generated/**
+.next/**
+out/**
+build/**
+next-env.d.ts
+pnpm-lock.yaml

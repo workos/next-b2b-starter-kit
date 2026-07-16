@@ -8,8 +8,7 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 import '@radix-ui/themes/styles.css';
-import { ThemeProvider } from 'next-themes';
-import { AuthKitProvider } from '@workos-inc/authkit-nextjs';
+import { ThemeProvider } from '@/lib/next-themes';
 import { DynamicBackground } from './components/layout/dynamic-background';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -28,9 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <NextTopLoader showSpinner={false} />
             <Flex direction="column" minHeight="100vh">
               <Header />
-              <Box flexGrow="1" asChild>
-                <AuthKitProvider>{children}</AuthKitProvider>
-              </Box>
+              <Box flexGrow="1">{children}</Box>
               <Footer />
             </Flex>
           </DynamicBackground>

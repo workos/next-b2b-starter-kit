@@ -1,12 +1,12 @@
-import { getSession, refreshSession } from '@workos-inc/authkit-nextjs';
+import { authkit, refreshSession } from '@workos-inc/authkit-nextjs';
 import { redirect } from 'next/navigation';
 import { workos } from '../api/workos';
 import { NextRequest } from 'next/server';
 
 export const GET = async (request: NextRequest) => {
-  let session = await getSession();
+  const { session } = await authkit(request);
 
-  if (!session) {
+  if (!session || !session.user) {
     return redirect('/pricing');
   }
 
@@ -15,7 +15,7 @@ export const GET = async (request: NextRequest) => {
   if (session && !session.role) {
     // Get the user's organization memberships so we can extract the org ID
     const oms = await workos.userManagement.listOrganizationMemberships({
-      userId: session.user?.id,
+      userId: session.user.id,
     });
 
     if (oms.data.length > 0) {
