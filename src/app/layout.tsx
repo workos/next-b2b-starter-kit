@@ -1,3 +1,4 @@
+import { AuthKitProvider } from '@workos-inc/authkit-nextjs/components';
 import { Header } from './components/layout/header';
 import { Footer } from './components/layout/footer';
 import NextTopLoader from 'nextjs-toploader';
@@ -27,7 +28,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <NextTopLoader showSpinner={false} />
             <Flex direction="column" minHeight="100vh">
               <Header />
-              <Box flexGrow="1">{children}</Box>
+              <Box flexGrow="1">
+                <AuthKitProvider>{children}</AuthKitProvider>
+              </Box>
               <Footer />
             </Flex>
           </DynamicBackground>
