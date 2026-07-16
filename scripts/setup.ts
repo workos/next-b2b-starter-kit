@@ -1,4 +1,3 @@
-import readline from 'node:readline';
 import { exec } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import { promisify } from 'node:util';
@@ -7,55 +6,22 @@ import path from 'node:path';
 import { WorkOS } from '@workos-inc/node';
 import Stripe from 'stripe';
 import chalk from 'chalk';
+import { input, password } from '@inquirer/prompts';
 
 const execAsync = promisify(exec);
 
 function question(query: string, options: { secret?: boolean } = {}): Promise<string> {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
   if (options.secret) {
-    // Mask typed characters so secret values never appear in the console output
-    let muted = false;
-    const rlInternal = rl as unknown as { _writeToOutput: (s: string) => void };
-    const originalWriteToOutput = rlInternal._writeToOutput.bind(rl);
-    rlInternal._writeToOutput = (stringToWrite: string) => {
-      if (!muted) {
-        originalWriteToOutput(stringToWrite);
-        return;
-      }
-
-      if (stringToWrite === '\r\n' || stringToWrite === '\n' || stringToWrite === '\r') {
-        originalWriteToOutput(stringToWrite);
-        return;
-      }
-      originalWriteToOutput('*');
-    };
-
-    return new Promise((resolve) => {
-      rl.question(query, (ans) => {
-        rl.close();
-        process.stdout.write('\n');
-        resolve(ans);
-      });
-      muted = true;
-    });
-  }
-
-  return new Promise((resolve) =>
-    rl.question(query, (ans) => {
-      rl.close();
-      resolve(ans);
-    }),
-  );
+    return password({ message: query, mask: '*' });
+  } else {
+		return input({ message: query });
+	}
 }
 
 async function getStripeSecretKey(): Promise<string> {
   console.log(`\n${chalk.bold('Getting Stripe Secret Key')}`);
   console.log('You can find your Stripe Test Secret Key at: https://dashboard.stripe.com/test/apikeys');
-  const key = await question('Enter your Stripe Secret Key: ');
+  const key = await question('Enter your Stripe Secret Key: ', { secret: true });
 
   if (key.includes('sk_test_')) {
     return key;
