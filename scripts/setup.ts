@@ -275,28 +275,7 @@ async function setupConvex() {
   }
 }
 
-async function setupStripeWebhook(stripeApiKey: string, webhookUrl: string) {
-  console.log(`\n${chalk.bold('Setting up Stripe webhooks')}`);
-
-  const stripe = new Stripe(stripeApiKey);
-
-  try {
-    const endpoint = await stripe.webhookEndpoints.create({
-      enabled_events: ['checkout.session.completed'],
-      url: webhookUrl,
-    });
-
-    console.log(chalk.green('Stripe webhook created successfully'));
-
-    console.log('\nAdding Stripe endpoint signing secret as deployment variable in Convex');
-    await execAsync(`npx convex env set STRIPE_WEBHOOK_SECRET ${endpoint.secret}`);
-    console.log(chalk.green('Stripe endpoint signing secret set as deployment variable in Convex'));
-  } catch (error) {
-    console.log(chalk.red('Failed to create Stripe webhook'));
-    console.log(error);
-    process.exit(1);
-  }
-
+async function setStripeApiKeyInConvex(stripeApiKey: string) {
   try {
     console.log('\nAdding Stripe API key as deployment variable in Convex');
     await execAsync(`npx convex env set STRIPE_API_KEY ${stripeApiKey}`);
@@ -378,7 +357,10 @@ async function main() {
   const convexUrl = env.match(/NEXT_PUBLIC_CONVEX_URL=(.*)/)?.[1];
   const webhookUrl = convexUrl?.replace('.cloud', '.site');
 
-  await setupStripeWebhook(STRIPE_API_KEY, webhookUrl + '/stripe-webhook');
+  // Entitlement sync is handled by WorkOS via the Stripe (Entitlements)
+  // integration — the app does NOT need its own Stripe webhook. We only need
+  // the Stripe API key available to Convex (used by convex/stripe.ts).
+  await setStripeApiKeyInConvex(STRIPE_API_KEY);
   await setupWorkOSWebhook(WORKOS_API_KEY, webhookUrl + '/workos-webhook');
 
   console.log('\n🎉 Setup completed successfully!');

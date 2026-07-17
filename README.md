@@ -35,6 +35,8 @@
 - Billing
 - Webhook syncing to Convex
 
+> Entitlement sync is handled by WorkOS (via the [Stripe integration](https://workos.com/docs/authkit/add-ons/stripe)) — the app's only responsibility is [refreshing the session](https://workos.com/docs/user-management/entitlements) after checkout so new entitlements appear in the access token immediately. No app-side Stripe webhook is required for entitlements.
+
 ## Getting started
 
 ### Prerequisites
