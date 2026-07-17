@@ -16,7 +16,13 @@ export function CheckoutSuccessRefresh() {
     let cancelled = false;
 
     const refresh = async () => {
-      await refreshAuthkitSession();
+      try {
+        await refreshAuthkitSession();
+      } catch {
+        // If the refresh fails, still drop the marker below so we don't retry on
+        // every page load. The entitlements will appear on the next natural
+        // session refresh.
+      }
       if (cancelled) return;
 
       // Drop the ?checkout=success marker and re-render with fresh entitlements.
