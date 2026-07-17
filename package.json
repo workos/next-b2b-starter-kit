@@ -4,44 +4,44 @@
   "private": true,
   "scripts": {
     "dev:next": "next dev",
-    "dev:convex": "npx convex dev",
+    "dev:convex": "convex dev",
     "dev": "concurrently \"pnpm run dev:next\" \"pnpm run dev:convex\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "setup": "pnpm install && npx tsx scripts/setup.ts"
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "setup": "pnpm dlx tsx scripts/setup.ts"
   },
   "dependencies": {
-    "@radix-ui/react-avatar": "^1.1.0",
-    "@radix-ui/react-icons": "^1.3.0",
-    "@radix-ui/react-tooltip": "^1.1.2",
-    "@radix-ui/themes": "^3.1.3",
-    "@workos-inc/authkit-nextjs": "^0.16.1",
-    "@workos-inc/node": "^7.33.0",
-    "@workos-inc/widgets": "1.0.0",
-    "concurrently": "^9.1.0",
-    "convex": "^1.15.0",
-    "convex-helpers": "^0.1.58",
-    "jose": "^5.9.3",
-    "next": "15.5.8",
-    "next-themes": "^0.3.0",
-    "nextjs-toploader": "^3.6.15",
-    "prettier": "^3.3.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "stripe": "^16.12.0"
+    "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/themes": "^3.3.0",
+    "@workos-inc/authkit-nextjs": "^4.2.0",
+    "@workos-inc/node": "^10.7.0",
+    "@workos-inc/widgets": "1.15.0",
+    "concurrently": "^10.0.3",
+    "convex": "^1.42.2",
+    "convex-helpers": "^0.1.120",
+    "jose": "^6.2.3",
+    "next": "^16.2.10",
+    "next-themes": "^0.4.6",
+    "nextjs-toploader": "^3.9.17",
+    "radix-ui": "^1.6.2",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "stripe": "^22.3.2"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "chalk": "^5.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.2",
+    "@inquirer/prompts": "^8.5.2",
+    "@types/node": "^24",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "chalk": "^5.6.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "prettier": "^3.9.5",
     "typescript": "^5"
   },
   "description": "A starter kit for B2B SaaS applications.",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/workos/next-b2b-starter-kit.git"
@@ -58,6 +58,5 @@
   "bugs": {
     "url": "https://github.com/workos/next-b2b-starter-kit/issues"
   },
-  "homepage": "https://github.com/workos/next-b2b-starter-kit#readme",
-  "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a"
+  "homepage": "https://github.com/workos/next-b2b-starter-kit#readme"
 }

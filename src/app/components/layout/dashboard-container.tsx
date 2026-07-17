@@ -1,18 +1,14 @@
 'use client';
 
+import { useIsHydrated } from '@/lib/use-is-hydrated';
 import { Flex } from '@radix-ui/themes';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useTheme } from '@/lib/next-themes';
 
 export function DashboardContainer({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const isHydrated = useIsHydrated();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const color = mounted ? (resolvedTheme === 'light' ? 'white' : 'transparent') : 'transparent';
+  const color = isHydrated ? (resolvedTheme === 'light' ? 'white' : 'transparent') : 'transparent';
 
   return (
     <Flex

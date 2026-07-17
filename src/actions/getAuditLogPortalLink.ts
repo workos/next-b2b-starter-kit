@@ -2,7 +2,7 @@
 
 import { workos } from '@/app/api/workos';
 import { withAuth } from '@workos-inc/authkit-nextjs';
-import { GeneratePortalLinkIntent } from '@workos-inc/node';
+import { GenerateLinkIntent } from '@workos-inc/node';
 
 export async function getAuditLogPortalLink(organizationId: string): Promise<string> {
   // Check if the organization has the audit logs entitlement
@@ -13,9 +13,9 @@ export async function getAuditLogPortalLink(organizationId: string): Promise<str
     throw new Error('Audit logs entitlement is required to view audit logs.');
   }
 
-  const { link } = await workos.portal.generateLink({
+  const { link } = await workos.adminPortal.generateLink({
     organization: organizationId,
-    intent: GeneratePortalLinkIntent.AuditLogs,
+    intent: GenerateLinkIntent.AuditLogs,
   });
 
   return link;

@@ -1,18 +1,14 @@
 'use client';
-
-import { useState, ReactNode, useEffect } from 'react';
+import { useState, ReactNode } from 'react';
 import { Box, Button, Tooltip } from '@radix-ui/themes';
 import { CheckIcon, CopyIcon } from '@radix-ui/react-icons';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/lib/next-themes';
+import { useIsHydrated } from '@/lib/use-is-hydrated';
 
 export default function CopyButton({ children, copyValue }: { children: ReactNode; copyValue: string }) {
   const [copied, setCopied] = useState(false);
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const isHydrated = useIsHydrated();
 
   const copyToClipboard = async () => {
     setCopied(true);
@@ -24,7 +20,7 @@ export default function CopyButton({ children, copyValue }: { children: ReactNod
     }
   };
 
-  const color: 'gray' | 'blue' = mounted ? (resolvedTheme === 'dark' ? 'gray' : 'blue') : 'blue';
+  const color: 'gray' | 'blue' = isHydrated ? (resolvedTheme === 'dark' ? 'gray' : 'blue') : 'blue';
 
   return (
     <Box>

@@ -21,7 +21,7 @@ export default async function Users() {
     );
   }
 
-  const authToken = await workos.widgets.getToken({
+  const { token: authToken } = await workos.widgets.createToken({
     organizationId,
     userId: user.id,
     scopes: ['widgets:users-table:manage'],
