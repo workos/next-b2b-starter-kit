@@ -49,6 +49,11 @@ export const POST = async (req: NextRequest) => {
       stripeCustomerId: customer.id,
     });
 
+    // Entitlements are provisioned onto the organization's access token by
+    // WorkOS automatically (via the Stripe Entitlements integration) once the
+    // Stripe customer ID is set on the org above. No app-side Stripe webhook is
+    // required. We tag the success URL so /dashboard can refresh the session and
+    // surface the new entitlements immediately instead of on the next login.
     const session = await stripe.checkout.sessions.create({
       customer: customer.id,
       billing_address_collection: 'auto',
@@ -59,7 +64,7 @@ export const POST = async (req: NextRequest) => {
         },
       ],
       mode: 'subscription',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?checkout=success`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing`,
     });
 

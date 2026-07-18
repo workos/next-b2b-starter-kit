@@ -4,7 +4,7 @@ import { workos } from '../api/workos';
 import { NextRequest } from 'next/server';
 
 export const GET = async (request: NextRequest) => {
-  const { session } = await authkit(request);
+  let { session } = await authkit(request);
 
   if (!session || !session.user) {
     return redirect('/pricing');
@@ -19,7 +19,6 @@ export const GET = async (request: NextRequest) => {
     });
 
     if (oms.data.length > 0) {
-      // @ts-expect-error will be fixed in the next version of @workos-inc/authkit-nextjs
       session = await refreshSession({
         organizationId: oms.data[0].organizationId,
         ensureSignedIn: true,
