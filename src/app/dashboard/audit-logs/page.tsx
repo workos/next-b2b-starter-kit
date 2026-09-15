@@ -21,7 +21,7 @@ export default function AuditLogs() {
       const session = JSON.parse(response);
 
       if (session.entitlements?.includes('audit-logs')) {
-        const link = await getAuditLogPortalLink(session.organizationId);
+        const link = await getAuditLogPortalLink();
         setWorkOSAdminPortalLink(link);
       }
 
