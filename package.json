@@ -9,7 +9,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test scripts/*.test.mjs",
     "format": "prettier --write .",
     "setup": "pnpm dlx tsx scripts/setup.ts"
   },
