@@ -3,10 +3,10 @@
 import { redirect } from 'next/navigation';
 import { stripe } from '../app/api/stripe';
 import { workos } from '@/app/api/workos';
-import { withAuth } from '@workos-inc/authkit-nextjs';
+import { withAdminAuth } from '@/lib/with-admin-auth';
 
 export default async function redirectToBillingPortal(path: string) {
-  const { organizationId } = await withAuth();
+  const { organizationId } = await withAdminAuth();
 
   const response = await fetch(`${workos.baseURL}/organizations/${organizationId}`, {
     headers: {

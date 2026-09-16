@@ -1,13 +1,13 @@
 import { Button, Flex, Heading, Box, Text } from '@radix-ui/themes';
 import { workos } from '@/app/api/workos';
 import { GenerateLinkIntent } from '@workos-inc/node';
-import { withAuth } from '@workos-inc/authkit-nextjs';
+import { withAdminAuth } from '@/lib/with-admin-auth';
 import Link from 'next/link';
 import { UpgradeButton } from '@/app/components/upgrade-button';
 import { DashboardContainer } from '@/app/components/layout/dashboard-container';
 
 export default async function SettingsPage() {
-  const { organizationId } = await withAuth({ ensureSignedIn: true });
+  const { organizationId } = await withAdminAuth();
 
   const { link: workOSAdminPortalLink } = await workos.adminPortal.generateLink({
     organization: organizationId as string,

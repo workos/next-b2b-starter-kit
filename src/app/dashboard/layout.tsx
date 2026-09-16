@@ -1,4 +1,5 @@
 import { DashboardNav } from '../components/layout/DashboardNav/dashboard-nav';
+import { withAdminAuth } from '@/lib/with-admin-auth';
 import { Flex } from '@radix-ui/themes';
 
 import type { Metadata } from 'next';
@@ -8,7 +9,10 @@ export const metadata: Metadata = {
   description: 'Fully featured B2B dashboard with Next.js, Radix UI, and WorkOS',
 };
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  // Pages and server actions repeat this check; see withAdminAuth.
+  await withAdminAuth();
+
   return (
     <Flex
       ml="9"
