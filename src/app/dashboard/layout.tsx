@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  // Pages and server actions repeat this check; see withAdminAuth.
+  // Gates client-component pages such as audit-logs, which cannot call withAdminAuth themselves.
   await withAdminAuth();
 
   return (
