@@ -1,9 +1,22 @@
 import { stripe } from '../stripe';
 import { workos } from '../workos';
+import { withAuth } from '@workos-inc/authkit-nextjs';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
-  const { userId, orgName, subscriptionLevel } = await req.json();
+  // The subscribing user comes from the session, never from the request body,
+  // so a caller cannot create an organization on behalf of someone else.
+  const { user } = await withAuth();
+
+  if (!user) {
+    return NextResponse.json({ error: 'You must be signed in to subscribe.' }, { status: 401 });
+  }
+
+  const { orgName, subscriptionLevel } = await req.json();
+
+  if (typeof orgName !== 'string' || orgName.trim() === '' || typeof subscriptionLevel !== 'string') {
+    return NextResponse.json({ error: 'Organization name and subscription level are required.' }, { status: 400 });
+  }
 
   try {
     const organization = await workos.organizations.createOrganization({
@@ -12,7 +25,7 @@ export const POST = async (req: NextRequest) => {
 
     await workos.userManagement.createOrganizationMembership({
       organizationId: organization.id,
-      userId,
+      userId: user.id,
       roleSlug: 'admin',
     });
 
@@ -31,8 +44,6 @@ export const POST = async (req: NextRequest) => {
       );
       return NextResponse.json({ error: 'Error retrieving price from Stripe' }, { status: 500 });
     }
-
-    const user = await workos.userManagement.getUser(userId);
 
     // Create Stripe customer
     const customer = await stripe.customers.create({
