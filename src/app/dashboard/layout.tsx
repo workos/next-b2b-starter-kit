@@ -10,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  // Gates client-component pages such as audit-logs, which cannot call withAdminAuth themselves.
+  // Defence in depth so a future sub-page is denied by default. Layouts do not
+  // gate sibling segments or re-render on client-side navigation, so every page
+  // and server action still calls withAdminAuth itself.
   await withAdminAuth();
 
   return (
