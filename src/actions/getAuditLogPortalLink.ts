@@ -1,13 +1,13 @@
 'use server';
 
 import { workos } from '@/app/api/workos';
-import { withAuth } from '@workos-inc/authkit-nextjs';
+import { withAdminAuth } from '@/lib/with-admin-auth';
 import { GenerateLinkIntent } from '@workos-inc/node';
 
 export async function getAuditLogPortalLink(organizationId: string): Promise<string> {
   // Check if the organization has the audit logs entitlement
   // We add a check here since the client side check is not secure enough
-  const { entitlements } = await withAuth({ ensureSignedIn: true });
+  const { entitlements } = await withAdminAuth();
 
   if (!entitlements?.includes('audit-logs')) {
     throw new Error('Audit logs entitlement is required to view audit logs.');

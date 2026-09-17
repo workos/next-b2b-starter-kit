@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
  * You will need to have a price in Stripe with the same lookup key as the subscriptionLevel.
  * See https://docs.stripe.com/products-prices/pricing-models for more details
  */
-export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: string; userId: string }) {
+export function ModalDialog({ subscriptionLevel }: { subscriptionLevel: string }) {
   const router = useRouter();
 
   const [orgName, setOrgName] = useState('');
@@ -33,7 +33,7 @@ export function ModalDialog({ subscriptionLevel, userId }: { subscriptionLevel: 
     // The user will be redirected to Stripe Checkout
     const res = await fetch('/api/subscribe', {
       method: 'POST',
-      body: JSON.stringify({ userId, orgName, subscriptionLevel: subscriptionLevel.toLowerCase() }),
+      body: JSON.stringify({ orgName, subscriptionLevel: subscriptionLevel.toLowerCase() }),
     });
 
     const { error, url } = await res.json();
