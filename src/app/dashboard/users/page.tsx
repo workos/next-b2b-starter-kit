@@ -2,11 +2,11 @@ import { DashboardContainer } from '@/app/components/layout/dashboard-container'
 import { Box, Card, Flex, Heading, Text } from '@radix-ui/themes';
 
 import { UsersManagement, WorkOsWidgets } from '@workos-inc/widgets';
-import { withAuth } from '@workos-inc/authkit-nextjs';
+import { withAdminAuth } from '@/lib/with-admin-auth';
 import { workos } from '@/app/api/workos';
 
 export default async function Users() {
-  const { user, organizationId } = await withAuth({ ensureSignedIn: true });
+  const { user, organizationId } = await withAdminAuth();
 
   if (!organizationId) {
     return (

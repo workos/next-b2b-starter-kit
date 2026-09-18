@@ -1,78 +1,10 @@
-'use client';
+import { withAdminAuth } from '@/lib/with-admin-auth';
+import { AuditLogs } from './audit-logs';
 
-import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Heading, Flex, Box, Callout, Button, Skeleton } from '@radix-ui/themes';
-import Link from 'next/link';
-import { UpgradeButton } from '@/app/components/upgrade-button';
-import { DashboardContainer } from '@/app/components/layout/dashboard-container';
-import { refreshAuthkitSession } from '@/actions/refreshAuthkitSession';
-import { getAuditLogPortalLink } from '@/actions/getAuditLogPortalLink';
-import { useEffect, useState } from 'react';
+// The audit-logs UI is a client component, so this server wrapper performs the
+// admin check that the other dashboard pages do inline.
+export default async function AuditLogsPage() {
+  await withAdminAuth();
 
-export default function AuditLogs() {
-  const [entitlements, setEntitlements] = useState<string[]>([]);
-  const [workOSAdminPortalLink, setWorkOSAdminPortalLink] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Refresh the session to ensure we have the latest entitlements
-    const fetchEntitlements = async () => {
-      try {
-        const response = await refreshAuthkitSession();
-        const session = JSON.parse(response);
-        setEntitlements(session.entitlements ?? []);
-
-        if (session.entitlements?.includes('audit-logs')) {
-          const link = await getAuditLogPortalLink();
-          setWorkOSAdminPortalLink(link);
-        }
-      } catch (error) {
-        // Server action errors are sanitized in production, so log for debugging
-        // and fall through to the error callout below rather than leaving the
-        // skeleton in a loading state forever.
-        console.error(error);
-        setWorkOSAdminPortalLink(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEntitlements();
-  }, []);
-
-  return (
-    <Flex direction="column" gap="3" width="100%">
-      <Box>
-        <Heading>Audit Logs</Heading>
-      </Box>
-      <DashboardContainer>
-        <Skeleton loading={loading}>
-          {!entitlements?.includes('audit-logs') ? (
-            <Callout.Root color="blue" style={{ width: '100%' }}>
-              <Flex align="center" justify="between" gap="3">
-                <Callout.Icon>
-                  <InfoCircledIcon />
-                </Callout.Icon>
-                <Callout.Text>This feature is only available on the Enterprise level plan.</Callout.Text>
-                <UpgradeButton path="audit-logs">Upgrade to Enterprise</UpgradeButton>
-              </Flex>
-            </Callout.Root>
-          ) : !workOSAdminPortalLink ? (
-            <Callout.Root color="red" style={{ width: '100%' }}>
-              <Callout.Icon>
-                <InfoCircledIcon />
-              </Callout.Icon>
-              <Callout.Text>Unable to load the audit logs portal. Refresh the page to try again.</Callout.Text>
-            </Callout.Root>
-          ) : (
-            <Box>
-              <Button variant="soft" style={{ cursor: 'pointer' }}>
-                <Link href={workOSAdminPortalLink}>View Audit Logs</Link>
-              </Button>
-            </Box>
-          )}
-        </Skeleton>
-      </DashboardContainer>
-    </Flex>
-  );
+  return <AuditLogs />;
 }

@@ -1,20 +1,10 @@
 import { Box, Flex, Text, Heading } from '@radix-ui/themes';
-import { withAuth } from '@workos-inc/authkit-nextjs';
-import { redirect } from 'next/navigation';
+import { withAdminAuth } from '@/lib/with-admin-auth';
 import { DashboardContainer } from '../components/layout/dashboard-container';
 import { CheckoutSuccessRefresh } from './checkout-success-refresh';
 
-export default async function DashboardPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ checkout?: string }>;
-}) {
-  const session = await withAuth({ ensureSignedIn: true });
-
-  // This view is restricted to admins
-  if (session.role !== 'admin') {
-    return redirect('/product');
-  }
+export default async function DashboardPage({ searchParams }: { searchParams: Promise<{ checkout?: string }> }) {
+  await withAdminAuth();
 
   const { checkout } = await searchParams;
 

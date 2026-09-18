@@ -1,14 +1,14 @@
 'use server';
 
 import { workos } from '@/app/api/workos';
-import { withAuth } from '@workos-inc/authkit-nextjs';
+import { withAdminAuth } from '@/lib/with-admin-auth';
 import { GenerateLinkIntent } from '@workos-inc/node';
 
 export async function getAuditLogPortalLink(): Promise<string> {
   // Read the organization and entitlements from the server-side session rather
   // than accepting them from the caller, so a client cannot request a portal
   // link for an organization it does not belong to.
-  const { organizationId, entitlements } = await withAuth({ ensureSignedIn: true });
+  const { organizationId, entitlements } = await withAdminAuth();
 
   if (!organizationId) {
     throw new Error('No organization found in session.');

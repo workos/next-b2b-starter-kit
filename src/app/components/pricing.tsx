@@ -75,7 +75,7 @@ export async function Pricing() {
                   </Flex>
                 ))}
               </Flex>
-              {user && <ModalDialog subscriptionLevel={plan.name} userId={user.id} />}
+              {user && <ModalDialog subscriptionLevel={plan.name} />}
             </Flex>
           </Card>
         </Box>
