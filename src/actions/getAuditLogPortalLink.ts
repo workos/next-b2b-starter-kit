@@ -4,10 +4,15 @@ import { workos } from '@/app/api/workos';
 import { withAdminAuth } from '@/lib/with-admin-auth';
 import { GenerateLinkIntent } from '@workos-inc/node';
 
-export async function getAuditLogPortalLink(organizationId: string): Promise<string> {
-  // Check if the organization has the audit logs entitlement
-  // We add a check here since the client side check is not secure enough
-  const { entitlements } = await withAdminAuth();
+export async function getAuditLogPortalLink(): Promise<string> {
+  // Read the organization and entitlements from the server-side session rather
+  // than accepting them from the caller, so a client cannot request a portal
+  // link for an organization it does not belong to.
+  const { organizationId, entitlements } = await withAdminAuth();
+
+  if (!organizationId) {
+    throw new Error('No organization found in session.');
+  }
 
   if (!entitlements?.includes('audit-logs')) {
     throw new Error('Audit logs entitlement is required to view audit logs.');

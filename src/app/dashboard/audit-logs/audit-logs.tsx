@@ -11,22 +11,30 @@ import { useEffect, useState } from 'react';
 
 export function AuditLogs() {
   const [entitlements, setEntitlements] = useState<string[]>([]);
-  const [workOSAdminPortalLink, setWorkOSAdminPortalLink] = useState<string | null>('');
+  const [workOSAdminPortalLink, setWorkOSAdminPortalLink] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Refresh the session to ensure we have the latest entitlements
     const fetchEntitlements = async () => {
-      const response = await refreshAuthkitSession();
-      const session = JSON.parse(response);
+      try {
+        const response = await refreshAuthkitSession();
+        const session = JSON.parse(response);
+        setEntitlements(session.entitlements ?? []);
 
-      if (session.entitlements?.includes('audit-logs')) {
-        const link = await getAuditLogPortalLink(session.organizationId);
-        setWorkOSAdminPortalLink(link);
+        if (session.entitlements?.includes('audit-logs')) {
+          const link = await getAuditLogPortalLink();
+          setWorkOSAdminPortalLink(link);
+        }
+      } catch (error) {
+        // Server action errors are sanitized in production, so log for debugging
+        // and fall through to the error callout below rather than leaving the
+        // skeleton in a loading state forever.
+        console.error(error);
+        setWorkOSAdminPortalLink(null);
+      } finally {
+        setLoading(false);
       }
-
-      setEntitlements(session.entitlements);
-      setLoading(false);
     };
 
     fetchEntitlements();
@@ -49,10 +57,17 @@ export function AuditLogs() {
                 <UpgradeButton path="audit-logs">Upgrade to Enterprise</UpgradeButton>
               </Flex>
             </Callout.Root>
+          ) : !workOSAdminPortalLink ? (
+            <Callout.Root color="red" style={{ width: '100%' }}>
+              <Callout.Icon>
+                <InfoCircledIcon />
+              </Callout.Icon>
+              <Callout.Text>Unable to load the audit logs portal. Refresh the page to try again.</Callout.Text>
+            </Callout.Root>
           ) : (
             <Box>
               <Button variant="soft" style={{ cursor: 'pointer' }}>
-                <Link href={workOSAdminPortalLink as string}>View Audit Logs</Link>
+                <Link href={workOSAdminPortalLink}>View Audit Logs</Link>
               </Button>
             </Box>
           )}
