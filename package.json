@@ -10,9 +10,15 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "setup": "pnpm dlx tsx scripts/setup.ts"
+    "setup": "pnpm dlx tsx scripts/setup.ts",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "preview:cloudflare": "pnpm build:cloudflare && opennextjs-cloudflare preview",
+    "deploy:cloudflare": "pnpm build:cloudflare && opennextjs-cloudflare deploy -- --keep-vars",
+    "typecheck": "tsc --noEmit",
+    "test:cloudflare": "node --test scripts/smoke-cloudflare.mjs"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "1.20.17",
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/themes": "^3.3.0",
     "@workos-inc/authkit-nextjs": "^4.2.0",
@@ -22,7 +28,7 @@
     "convex": "^1.42.2",
     "convex-helpers": "^0.1.120",
     "jose": "^6.2.3",
-    "next": "^16.2.10",
+    "next": "^16.4.6",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.9.17",
     "radix-ui": "^1.6.2",
@@ -37,9 +43,10 @@
     "@types/react-dom": "^19.2.3",
     "chalk": "^5.6.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "16.4.6",
     "prettier": "^3.9.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.163.0"
   },
   "description": "A starter kit for B2B SaaS applications.",
   "repository": {
@@ -58,5 +65,6 @@
   "bugs": {
     "url": "https://github.com/workos/next-b2b-starter-kit/issues"
   },
-  "homepage": "https://github.com/workos/next-b2b-starter-kit#readme"
+  "homepage": "https://github.com/workos/next-b2b-starter-kit#readme",
+  "packageManager": "pnpm@10.32.1"
 }

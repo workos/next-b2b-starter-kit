@@ -99,9 +99,9 @@ When running locally or using the deployed [demo app](https://b2b-starter-kit.ve
 
 ## Deploying
 
-Once you're ready to deploy your app, refer to the [Convex documentation](https://docs.convex.dev/production) for instructions on deploying to hosted solutions like Vercel.
+For Cloudflare Workers hosting, follow the [Cloudflare migration and deployment guide](docs/cloudflare.md). The Next.js app runs on Workers while the existing Convex, WorkOS, and Stripe services remain in place.
 
-Remember to use your production API keys for both Stripe and WorkOS before deploying to production.
+For Convex backend deployments, see the [Convex production documentation](https://docs.convex.dev/production). Preserve the existing test/live mode when moving a demo between hosts; changing hosting is not a reason to switch billing credentials.
 
 ## Need to Sync more data?
 

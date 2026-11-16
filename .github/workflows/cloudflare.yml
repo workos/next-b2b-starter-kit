@@ -1,0 +1,35 @@
+name: Cloudflare compatibility
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  cloudflare:
+    name: Cloudflare build and smoke tests
+    runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      # Synthetic test configuration, never used for a deployment.
+      WORKOS_API_KEY: sk_test_cloudflare_smoke_only
+      WORKOS_CLIENT_ID: client_cloudflare_smoke_only
+      WORKOS_COOKIE_PASSWORD: cloudflare-smoke-only-not-a-real-secret-123456789
+      STRIPE_API_KEY: sk_test_cloudflare_smoke_only
+      NEXT_PUBLIC_BASE_URL: http://127.0.0.1:8787
+      NEXT_PUBLIC_WORKOS_REDIRECT_URI: http://127.0.0.1:8787/callback
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm build:cloudflare
+      - run: pnpm typecheck
+      - run: pnpm test:cloudflare
