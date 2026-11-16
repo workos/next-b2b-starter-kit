@@ -36,8 +36,11 @@ commit them or `.dev.vars` files. Never deploy a build made with smoke-test valu
 
 First record the active Vercel production commit, build command, variable names,
 and any production-specific overrides. A failed recent deployment does not prove
-which revision currently serves. Preserve any Convex deployment step separately;
-`build:cloudflare` only builds the Next.js application.
+which revision currently serves. The existing demo's Vercel build command is
+`npx convex deploy --cmd 'pnpm run build'`: it builds the Next.js app and then pushes
+Convex functions, indexes, and schema to the deployment selected by its deploy
+key. Preserve that backend deployment responsibility at cutover, as described
+below. `build:cloudflare` alone only builds the Next.js application.
 
 Configure these in Cloudflare before the production build:
 
@@ -56,11 +59,12 @@ secrets directly between the authenticated dashboards or the existing secret
 manager, never through an issue, PR, chat, or tracked file. Do not prefix secrets
 with `NEXT_PUBLIC_` or put them in Wrangler `vars`.
 
-`CONVEX_DEPLOY_KEY` belongs only in a pipeline that runs the Convex deployment
-CLI, not in the Worker runtime. Preserve that pipeline if the current Vercel build
-command invokes it. The current app uses `NEXT_PUBLIC_BASE_URL`, not `BASE_URL`;
-keep any old `BASE_URL` setting until the active revision and custom build command
-confirm it is unused.
+`CONVEX_DEPLOY_KEY` is required by the existing Vercel deployment pipeline, not by
+the running app. Keep it in Vercel for now; the initial frontend-only Cloudflare
+build does not need it, and it must not be added to the Worker runtime. The current
+app uses `NEXT_PUBLIC_BASE_URL`, not `BASE_URL`; the supplied build command does
+not reference `BASE_URL` either. Keep the old setting until the serving revision
+is checked for any remaining use.
 
 Retain additional variables found in Vercel when applicable (for example cookie
 domain overrides). An old-domain cookie override must not carry over unchanged to
@@ -92,6 +96,32 @@ verification and the DNS owner's approval. Version preview URLs are disabled;
 use a separately configured Worker and test service environments for branch
 previews so they cannot accidentally share production callbacks or billing state.
 The GitHub compatibility workflow does not deploy or require cloud credentials.
+
+## Preserve backend deployment at cutover
+
+Before retiring Vercel, move its Convex deployment step to an approved production
+pipeline. Otherwise the existing backend keeps serving but future backend changes
+will no longer deploy with the frontend. Do not enable this step just to validate
+the new Worker: it writes to the existing backend.
+
+Once backend deployment is approved and the existing Convex target is verified,
+the equivalent combined production **build command** is:
+
+```sh
+pnpm exec convex deploy --cmd 'pnpm run build:cloudflare'
+```
+
+Keep the Workers deploy command above unchanged. Transfer the existing
+`CONVEX_DEPLOY_KEY` directly into the production pipeline's **build secrets**,
+never into Worker runtime settings, source, or a public variable. Alternatively,
+retain an independently managed Convex deployment pipeline and keep the Worker
+build frontend-only.
+
+Restrict the combined command and production key to the production branch; do not
+make them available to PR/branch-preview builds. Disable competing Vercel backend
+deploys only at the approved handoff. This is not an atomic backend/frontend
+release: Convex is updated before the subsequent Worker upload, so backend changes
+must remain compatible with the currently serving and rollback frontend versions.
 
 ## Verification and cutover
 
