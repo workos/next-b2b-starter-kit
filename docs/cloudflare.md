@@ -56,6 +56,12 @@ secrets directly between the authenticated dashboards or the existing secret
 manager, never through an issue, PR, chat, or tracked file. Do not prefix secrets
 with `NEXT_PUBLIC_` or put them in Wrangler `vars`.
 
+`CONVEX_DEPLOY_KEY` belongs only in a pipeline that runs the Convex deployment
+CLI, not in the Worker runtime. Preserve that pipeline if the current Vercel build
+command invokes it. The current app uses `NEXT_PUBLIC_BASE_URL`, not `BASE_URL`;
+keep any old `BASE_URL` setting until the active revision and custom build command
+confirm it is unused.
+
 Retain additional variables found in Vercel when applicable (for example cookie
 domain overrides). An old-domain cookie override must not carry over unchanged to
 a new hostname. Keep Convex's environment and WorkOS webhook signing secret on

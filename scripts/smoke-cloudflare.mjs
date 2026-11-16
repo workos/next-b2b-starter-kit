@@ -75,9 +75,12 @@ before(async () => {
 
 after(async () => {
   if (worker && worker.exitCode === null && worker.signalCode === null) {
-    process.kill(-worker.pid, 'SIGTERM');
+    // Wrangler forwards the signal and shuts down its own child processes.
+    worker.kill('SIGTERM');
     await exited;
   }
+  // Keep server-side diagnostics in the test output, including assertion failures.
+  if (worker) console.log(`\n--- Worker output ---\n${readFileSync(logPath, 'utf8')}`);
   rmSync(directory, { recursive: true, force: true });
 });
 
