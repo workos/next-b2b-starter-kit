@@ -80,7 +80,12 @@ WorkOS–Stripe entitlements connection unchanged.
 ## Deploy without cutting over Vercel
 
 Connect this GitHub repository to **Workers Builds** in the approved Cloudflare
-account after the migration PR is merged. Use these commands:
+account. For initial verification, build the reviewed migration branch without
+merging it into Vercel's production branch. Check Vercel's production branch and
+automatic-deployment settings before merging: a merge may rebuild the existing
+site and run its Convex deployment command even without a DNS change.
+
+Use these frontend-only commands during initial verification:
 
 - Build command: `pnpm build:cloudflare`
 - Deploy command: `pnpm exec opennextjs-cloudflare deploy -- --keep-vars`
