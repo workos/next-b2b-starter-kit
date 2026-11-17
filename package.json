@@ -35,7 +35,7 @@
     "prettier": "^3.9.5",
     "typescript": "^5"
   },
-  "description": "A B2B SaaS code example built with Next.js, WorkOS, Stripe, and Convex.",
+  "description": "A starter kit for B2B SaaS applications.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/workos/next-b2b-starter-kit.git"

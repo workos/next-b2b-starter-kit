@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  A B2B SaaS code example built with Next.js, Stripe, Convex, and WorkOS.
+  A fully functional B2B SaaS template built with Next.js, Stripe, Convex, and WorkOS.
 </p>
 
 <p align="center">
@@ -11,8 +11,6 @@
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/>
   </a>
 </p>
-
-This repository is a code example, not a maintained hosted demo. It does not include deployment or resource-provisioning automation. To run the application locally, configure your own development accounts as described below. Installing dependencies and starting the development server do not create external resources.
 
 Read about the [Next.js B2B Starter Kit](https://workos.com/blog/nextjs-b2b-starter-kit) on the WorkOS blog.
 
@@ -23,7 +21,7 @@ Read about the [Next.js B2B Starter Kit](https://workos.com/blog/nextjs-b2b-star
 - Dashboard page (`/dashboard`) which is only accessible to admin users. Includes user management, audit logs, SSO settings, and billing
 - Product page (`/product`) which is only accessible to signed-in users
 - Role-based access control
-- WorkOS-to-Convex webhook examples in `convex/`
+- Webhook syncing to Convex
 
 Entitlement sync is handled by WorkOS via the [Stripe integration](https://workos.com/docs/authkit/add-ons/stripe). The app [refreshes the session](https://workos.com/docs/user-management/entitlements) after Checkout so new entitlements appear in the access token. No app-side Stripe webhook is required for entitlements.
 
