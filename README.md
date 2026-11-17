@@ -52,8 +52,6 @@ cp .env.example .env.local
 | `NEXT_PUBLIC_BASE_URL`            | `http://localhost:3000`                               |
 | `NEXT_PUBLIC_WORKOS_REDIRECT_URI` | `http://localhost:3000/callback`                      |
 
-You can generate the cookie password locally with `openssl rand -base64 32`. Keep all secrets unprefixed: only the two public URLs use `NEXT_PUBLIC_`.
-
 ### Configure the example's service prerequisites
 
 These settings belong in your own development/test accounts; there is no setup script that creates them for you.
@@ -70,8 +68,6 @@ pnpm dev
 ```
 
 Open `http://localhost:3000`. This starts Next.js only; it does not start or configure Convex. Signing up, subscribing, and using the app can write data to the development services you configured.
-
-The generic `pnpm build` and `pnpm start` commands are also available to build and run the example locally. They do not publish it to a hosting provider. Set the environment variables before building; Next.js compiles the `NEXT_PUBLIC_*` values into the build.
 
 ## Optional Convex webhook example
 
