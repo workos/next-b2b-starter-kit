@@ -72,9 +72,9 @@ export default async function Home() {
             Quickly build and deploy your B2B SaaS application using modern frameworks designed for seamless scaling for
             enterprise customers.
           </Text>
-          <CopyButton copyValue="git clone https://github.com/workos/b2b-starter-kit.git">
+          <CopyButton copyValue="git clone https://github.com/workos/next-b2b-starter-kit.git">
             <Code variant="ghost" size="4">
-              git clone https://github.com/workos/b2b-starter-kit.git
+              git clone https://github.com/workos/next-b2b-starter-kit.git
             </Code>
           </CopyButton>
         </Flex>

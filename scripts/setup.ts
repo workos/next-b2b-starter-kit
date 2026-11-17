@@ -1,4 +1,4 @@
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import { promisify } from 'node:util';
 import crypto from 'node:crypto';
@@ -8,14 +8,15 @@ import Stripe from 'stripe';
 import chalk from 'chalk';
 import { input, password } from '@inquirer/prompts';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
+const convexCli = path.join(process.cwd(), 'node_modules', 'convex', 'bin', 'main.js');
 
 function question(query: string, options: { secret?: boolean } = {}): Promise<string> {
   if (options.secret) {
     return password({ message: query, mask: '*' });
   } else {
-		return input({ message: query });
-	}
+    return input({ message: query });
+  }
 }
 
 async function getStripeSecretKey(): Promise<string> {
@@ -266,7 +267,7 @@ async function setupConvex() {
 
   try {
     console.log('Creating new Convex project (this will take a few moments)');
-    await execAsync(`npx convex dev --once --configure=new --project=${projectName}`);
+    await execFileAsync(process.execPath, [convexCli, 'dev', '--once', '--configure=new', `--project=${projectName}`]);
     console.log(chalk.green('Created new Convex project'));
   } catch (error) {
     console.log(chalk.red('Failed to create new Convex project or connect to existing one'));
@@ -278,11 +279,11 @@ async function setupConvex() {
 async function setStripeApiKeyInConvex(stripeApiKey: string) {
   try {
     console.log('\nAdding Stripe API key as deployment variable in Convex');
-    await execAsync(`npx convex env set STRIPE_API_KEY ${stripeApiKey}`);
+    await execFileAsync(process.execPath, [convexCli, 'env', 'set', 'STRIPE_API_KEY', stripeApiKey]);
     console.log(chalk.green('Stripe API key set as deployment variable in Convex'));
-  } catch (error) {
+  } catch {
+    // Subprocess errors include their arguments, which contain the secret.
     console.log(chalk.red('Failed to set Stripe API key as deployment variable in Convex'));
-    console.log(error);
     process.exit(1);
   }
 }
@@ -305,21 +306,19 @@ async function setupWorkOSWebhook(workosApiKey: string, webhookUrl: string) {
 
   try {
     console.log('\nSetting WorkOS webhook signing secret as deployment variable in Convex');
-    await execAsync(`npx convex env set WORKOS_WEBHOOK_SECRET ${workOSWebhookSecret}`);
+    await execFileAsync(process.execPath, [convexCli, 'env', 'set', 'WORKOS_WEBHOOK_SECRET', workOSWebhookSecret]);
     console.log(chalk.green('WorkOS webhook signing secret set as deployment variable in Convex'));
-  } catch (error) {
+  } catch {
     console.log(chalk.red('Failed to set WorkOS webhook signing secret as deployment variable in Convex'));
-    console.log(error);
     process.exit(1);
   }
 
   try {
     console.log('\nSetting WorkOS API key as deployment variable in Convex');
-    await execAsync(`npx convex env set WORKOS_API_KEY ${workosApiKey}`);
+    await execFileAsync(process.execPath, [convexCli, 'env', 'set', 'WORKOS_API_KEY', workosApiKey]);
     console.log(chalk.green('WorkOS API key set as deployment variable in Convex'));
-  } catch (error) {
+  } catch {
     console.log(chalk.red('Failed to set WorkOS API key as deployment variable in Convex'));
-    console.log(error);
     process.exit(1);
   }
 }
