@@ -1,5 +1,4 @@
 <p align="center">
-  <img src="./public/splash_page.jpeg" alt="Screenshot of the example application"/>
   <h1 align="center">Next.js B2B Starter Kit</h1>
 </p>
 
