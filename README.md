@@ -97,3 +97,9 @@ Use Stripe **test mode** when trying checkout locally:
 - CVC: Any 3 digits
 - Expiration date: Any future date
 - ZIP: Any 5 digits
+
+## Deploying
+
+Once you're ready to deploy your app, refer to the [Convex documentation](https://docs.convex.dev/production) for instructions on deploying to hosted solutions.
+
+Remember to use your production API keys for both Stripe and WorkOS before deploying to production.
