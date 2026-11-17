@@ -91,7 +91,7 @@ Users with the `admin` role can access the dashboard to manage users, configure 
 
 ## Testing
 
-Use Stripe **test mode** when trying Checkout locally:
+Use Stripe **test mode** when trying checkout locally:
 
 - Card number: 4242 4242 4242 4242
 - CVC: Any 3 digits
