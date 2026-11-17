@@ -75,7 +75,13 @@ The `convex/` directory demonstrates syncing WorkOS users and organizations. The
 
 If adapting this example to your own Convex development project, `convex/http.ts` handles `POST /workos-webhook` for `user.created`, `user.updated`, `user.deleted`, `organization.created`, `organization.updated`, and `organization.deleted`. Its verification action reads `WORKOS_API_KEY` and `WORKOS_WEBHOOK_SECRET` from the Convex environment, separately from the Next.js `.env.local` file. Point a webhook from your own WorkOS development environment at that handler and use its matching signing secret.
 
-For background on the integration, watch the [webhook-sync video series](https://youtu.be/GGwBSu0XmP0?feature=shared).
+### Need to Sync more data?
+
+Learn more about the syncing system that connects [AuthKit](https://www.authkit.com/) and [Convex](https://www.convex.dev/).
+
+We made a short video series that covers the full integration. Check it out on [YouTube](https://youtu.be/GGwBSu0XmP0?feature=shared).
+
+[![Sync Data with Webhooks](https://github.com/user-attachments/assets/7a2f2098-fc57-42d1-89dc-f0f00777857a)](https://youtu.be/GGwBSu0XmP0?feature=shared)
 
 ## App flow
 
