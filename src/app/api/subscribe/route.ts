@@ -39,7 +39,7 @@ export const POST = async (req: NextRequest) => {
       });
     } catch (error) {
       console.error(
-        'Error retrieving price from Stripe. This is likely because the products and prices have not been created yet. Run the setup script `pnpm run setup` to automatically create them.',
+        'Error retrieving price from Stripe. Check the Stripe test-mode credentials and price lookup keys described in the README.',
         error,
       );
       return NextResponse.json({ error: 'Error retrieving price from Stripe' }, { status: 500 });
