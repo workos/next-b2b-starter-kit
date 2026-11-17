@@ -54,12 +54,24 @@ cp .env.example .env.local
 
 ### Configure the example's service prerequisites
 
-These settings belong in your own development/test accounts; there is no setup script that creates them for you.
+Configure these settings in your own development/test accounts, or use the optional setup helper below.
 
 - **WorkOS authentication:** configure [AuthKit for Next.js](https://workos.com/docs/authkit/nextjs) with `http://localhost:3000/callback` as an allowed redirect URI, `http://localhost:3000/sign-in` as the Initiate login URI, and `http://localhost:3000` as the Sign-out URI. Create an `admin` role; dashboard routes and actions require that role.
 - **Stripe billing:** create test-mode products and recurring prices with lookup keys `basic`, `standard`, and `enterprise`, matching the plans in `src/app/components/pricing.tsx`. Configure the Stripe customer portal for billing management.
 - **Entitlements:** connect Stripe to your WorkOS development environment using the [Stripe integration](https://workos.com/docs/authkit/add-ons/stripe). Create the Stripe entitlement feature `audit-logs` and attach it to the Enterprise product to enable the audit-log screen.
 - **Audit logs:** configure schemas for `user.logged_in` and `user.logged_out`. Both use actor metadata with a `role` string and a target of type `user`; see `src/app/router/route.ts` and `src/actions/signOut.ts` for the event payloads.
+
+### Optional guided setup
+
+To generate test products and configure the example interactively instead of completing every step manually, run:
+
+```bash
+pnpm run setup
+```
+
+The helper prompts for Stripe and WorkOS test credentials, offers to create the three pricing plans and audit-log entitlement, creates WorkOS audit-log schemas, and writes `.env.local`. It also walks through the Stripe integration, redirect URI, and admin role settings.
+
+This full setup includes creating a Convex development project and configuring its webhook secrets, so you will need your own Convex account. Use development/test accounts: the helper creates real resources and updates existing `.env.local` values. Skip it if you prefer the manual configuration above; it never runs automatically with `pnpm dev`.
 
 ### Start the application
 
