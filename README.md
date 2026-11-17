@@ -39,10 +39,9 @@ Entitlement sync is handled by WorkOS via the [Stripe integration](https://worko
 git clone https://github.com/workos/next-b2b-starter-kit.git
 cd next-b2b-starter-kit
 pnpm install
+# Fill in `.env.local` with your own development credentials
 cp .env.example .env.local
 ```
-
-Fill in `.env.local` with your own development credentials. Never commit this file or use production credentials for local testing.
 
 | Variable                          | Local value                                           |
 | --------------------------------- | ----------------------------------------------------- |
