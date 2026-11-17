@@ -97,5 +97,3 @@ Use Stripe **test mode** when trying checkout locally:
 - CVC: Any 3 digits
 - Expiration date: Any future date
 - ZIP: Any 5 digits
-
-Run `pnpm lint` and `pnpm exec tsc --noEmit` to check the example's source.
