@@ -23,14 +23,14 @@ Read about the [Next.js B2B Starter Kit](https://workos.com/blog/nextjs-b2b-star
 - Role-based access control
 - Webhook syncing to Convex
 
-Entitlement sync is handled by WorkOS via the [Stripe integration](https://workos.com/docs/authkit/add-ons/stripe). The app [refreshes the session](https://workos.com/docs/user-management/entitlements) after Checkout so new entitlements appear in the access token. No app-side Stripe webhook is required for entitlements.
+Entitlement sync is handled by WorkOS via the [Stripe integration](https://workos.com/docs/authkit/add-ons/stripe). The app [refreshes the session](https://workos.com/docs/user-management/entitlements) after checkout so new entitlements appear in the access token. No app-side Stripe webhook is required for entitlements.
 
-## Run the example locally
+## Getting started
 
 ### Prerequisites
 
 - The Node.js version specified in `.nvmrc` and pnpm.
-- Your own [WorkOS](https://workos.com/) development environment and [Stripe](https://stripe.com/) test-mode account. Authentication and billing use real service APIs; this is not an offline mock.
+- Your own [WorkOS](https://workos.com/) development environment and [Stripe](https://stripe.com/) account.
 - A [Convex](https://www.convex.dev/) development project only if you want to use the optional webhook-sync example.
 
 ### Install and configure
@@ -38,7 +38,7 @@ Entitlement sync is handled by WorkOS via the [Stripe integration](https://worko
 ```bash
 git clone https://github.com/workos/next-b2b-starter-kit.git
 cd next-b2b-starter-kit
-pnpm install --frozen-lockfile
+pnpm install
 cp .env.example .env.local
 ```
 
