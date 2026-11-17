@@ -69,7 +69,8 @@ export default async function Home() {
             Next.js B2B Starter Kit
           </Heading>
           <Text size="7" align="center">
-            Explore a B2B SaaS code example built with Next.js, WorkOS, Stripe, and Convex.
+            Quickly build and deploy your B2B SaaS application using modern frameworks designed for seamless scaling for
+            enterprise customers.
           </Text>
           <CopyButton copyValue="git clone https://github.com/workos/next-b2b-starter-kit.git">
             <Code variant="ghost" size="4">
